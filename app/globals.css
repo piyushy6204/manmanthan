@@ -79,3 +79,7 @@ body {
 @supports (padding: max(0px)) {
   .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
 }
+
+/* CBT diagram: the arrows around the selected element draw once when chosen (disabled for reduced motion) */
+@keyframes cbt-flow { from { stroke-dashoffset: 120; } to { stroke-dashoffset: 0; } }
+.cbt-flow { stroke-dasharray: 120; animation: cbt-flow 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 1 both; }

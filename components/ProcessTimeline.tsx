@@ -1,5 +1,6 @@
 "use client";
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { CalendarCheck, MessageCircle, Sprout, Video, type LucideIcon } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import Button from "./Button";
@@ -12,7 +13,25 @@ const steps: { n: string; icon: LucideIcon; title: string; text: string }[] = [
   { n: "04", icon: Sprout, title: "Continue Your Journey", text: "Move forward at your own pace, exploring your concerns and working towards meaningful goals." },
 ];
 
+const STEP_GAP = 0.7; // seconds between steps on desktop
+
+function useIsDesktop() {
+  const [desktop, setDesktop] = useState(false);
+  useEffect(() => {
+    const m = window.matchMedia("(min-width: 1024px)");
+    const update = () => setDesktop(m.matches);
+    update();
+    m.addEventListener("change", update);
+    return () => m.removeEventListener("change", update);
+  }, []);
+  return desktop;
+}
+
 export default function ProcessTimeline() {
+  const desktop = useIsDesktop();
+  const reduced = useReducedMotion();
+  // Desktop: steps appear one after another. Mobile: each step appears as it scrolls into view.
+  const stepDelay = (i: number) => (desktop && !reduced ? i * STEP_GAP : 0);
   return (
     <section id="process" aria-labelledby="process-heading" className="bg-sage/15 section-y">
       <div className="container-x">
@@ -28,8 +47,8 @@ export default function ProcessTimeline() {
             className="absolute left-0 right-0 top-[7px] hidden h-px origin-left bg-gold/70 lg:block"
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
-            viewport={{ once: true, margin: "0px 0px -15% 0px" }}
-            transition={{ duration: 0.9, ease: [0.22, 0.61, 0.36, 1] }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: STEP_GAP * 4, ease: "linear" }}
           />
           <span aria-hidden="true" className="absolute bottom-2 left-[7px] top-2 w-px bg-gold/70 lg:hidden" />
 
@@ -39,8 +58,8 @@ export default function ProcessTimeline() {
               className="relative pl-9 lg:pl-0 lg:pt-10"
               initial={{ opacity: 0, y: 14 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "0px 0px -10% 0px" }}
-              transition={{ duration: 0.5, delay: i * 0.08, ease: [0.22, 0.61, 0.36, 1] }}
+              viewport={{ once: true, amount: desktop ? 0.2 : 0.6 }}
+              transition={{ duration: 0.5, delay: stepDelay(i), ease: [0.22, 0.61, 0.36, 1] }}
             >
               <span aria-hidden="true" className="absolute left-0 top-1.5 h-[15px] w-[15px] rounded-full border border-gold bg-ivory lg:top-0" />
               <div className="flex items-center gap-3">

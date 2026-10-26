@@ -1,12 +1,16 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Brain, Footprints, Heart, type LucideIcon } from "lucide-react";
 import Reveal from "./Reveal";
+import Sprig from "./Sprig";
 
 const elements = {
   thoughts: {
     label: "Thoughts",
-    pos: "left-1/2 top-[13%]",
+    icon: Brain,
+    x: 200,
+    y: 64,
     meaning: "Thoughts are the interpretations we make about a situation, often so quickly that we barely notice them.",
     exampleLabel: "A thought might be",
     example: "“I'm going to get everything wrong.”",
@@ -14,7 +18,9 @@ const elements = {
   },
   feelings: {
     label: "Feelings",
-    pos: "left-[20%] top-[84%]",
+    icon: Heart,
+    x: 64,
+    y: 304,
     meaning: "Feelings are the emotions, and often the physical sensations, that tend to come with our thoughts.",
     exampleLabel: "A feeling might be",
     example: "Anxiety, worry or self doubt.",
@@ -22,13 +28,23 @@ const elements = {
   },
   behaviours: {
     label: "Behaviours",
-    pos: "left-[80%] top-[84%]",
+    icon: Footprints,
+    x: 336,
+    y: 304,
     meaning: "Behaviours are what we do, or avoid doing, in response to a situation and how we feel about it.",
     exampleLabel: "A behaviour might be",
     example: "Avoiding a task or repeatedly seeking reassurance.",
     link: "What we do can ease a feeling for a moment, yet it can also keep the original thought in place.",
   },
-} as const;
+} as const satisfies Record<string, { icon: LucideIcon; x: number; y: number } & Record<string, unknown>>;
+
+/* The cycle: thoughts → behaviours → feelings → thoughts. Each edge touches two elements. */
+const edges = [
+  { id: "t-b", from: "thoughts", to: "behaviours", d: "M 236 88 C 306 112 336 170 336 256" },
+  { id: "b-f", from: "behaviours", to: "feelings", d: "M 298 336 C 256 384 144 384 102 336" },
+  { id: "f-t", from: "feelings", to: "thoughts", d: "M 64 256 C 64 170 94 112 164 88" },
+] as const;
+
 type Key = keyof typeof elements;
 const keys = Object.keys(elements) as Key[];
 
@@ -60,18 +76,44 @@ export default function CBTSection() {
 
         <Reveal delay={0.08}>
           <div className="border border-gold/50 bg-sage/10 p-4 sm:p-7">
-            <p className="text-center text-[0.875rem] text-ink/70">Select a point on the triangle to explore it.</p>
+            <p className="text-center text-[0.875rem] text-ink/70">Select Thoughts, Feelings or Behaviours to explore the cycle.</p>
 
-            <div className="relative mx-auto mt-4 aspect-[4/4] w-full max-w-[24rem] sm:aspect-[400/340]">
-              <svg viewBox="0 0 400 340" preserveAspectRatio="none" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true" focusable="false">
-                <polygon points="200,44 80,286 320,286" className="stroke-forest/10" strokeWidth="6" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
-                <polygon points="200,44 80,286 320,286" className="stroke-gold" strokeWidth="1.25" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+            <div className="relative mx-auto mt-3 aspect-square w-full max-w-[26rem]">
+              <svg viewBox="0 0 400 400" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true" focusable="false">
+                <defs>
+                  <marker id="cbt-arrow-on" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                    <path d="M0 1 L9 5 L0 9z" className="fill-gold" />
+                  </marker>
+                  <marker id="cbt-arrow-off" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+                    <path d="M0 1 L9 5 L0 9z" className="fill-forest/30" />
+                  </marker>
+                </defs>
+                {/* soft backdrop: a sage disc with a fine gold ring, echoing the logo's circle */}
+                <circle cx="200" cy="214" r="150" className="fill-sage/25" />
+                <circle cx="200" cy="214" r="168" className="stroke-gold/60" strokeWidth="1" />
+                {edges.map((e) => {
+                  const on = e.from === active || e.to === active;
+                  return (
+                    <path
+                      key={`${e.id}-${on ? active : "off"}`}
+                      d={e.d}
+                      strokeWidth={on ? 2 : 1.5}
+                      strokeLinecap="round"
+                      markerEnd={`url(#${on ? "cbt-arrow-on" : "cbt-arrow-off"})`}
+                      className={`${on ? "stroke-gold cbt-flow" : "stroke-forest/25"} transition-colors duration-300`}
+                    />
+                  );
+                })}
               </svg>
-              <p className="pointer-events-none absolute left-1/2 top-[58%] w-[38%] -translate-x-1/2 -translate-y-1/2 text-center font-serif text-[0.95rem] italic leading-snug text-forest sm:text-[1.1rem]">
-                Each one influences the others
-              </p>
+
+              <div className="pointer-events-none absolute left-1/2 top-[52%] flex w-[40%] -translate-x-1/2 -translate-y-1/2 flex-col items-center text-center">
+                <Sprig className="h-14 w-9 text-forest/70 sm:h-16 sm:w-10" />
+                <p className="mt-1 font-serif text-[0.9375rem] italic leading-snug text-forest sm:text-[1.0625rem]">Each one influences the others</p>
+              </div>
 
               {keys.map((k) => {
+                const el = elements[k];
+                const Icon = el.icon;
                 const selected = k === active;
                 return (
                   <button
@@ -80,11 +122,19 @@ export default function CBTSection() {
                     aria-pressed={selected}
                     aria-controls="cbt-panel"
                     onClick={() => setActive(k)}
-                    className={`absolute ${elements[k].pos} flex min-h-[44px] min-w-[6rem] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-[3px] border px-3 py-2 font-serif text-[1.0625rem] font-medium transition-colors duration-300 ease-calm sm:min-w-[7rem] sm:text-[1.2rem] ${
-                      selected ? "border-forest bg-forest text-white" : "border-forest/50 bg-ivory text-forest hover:border-forest hover:bg-sage/25"
-                    }`}
+                    style={{ left: `${(el.x / 400) * 100}%`, top: `calc(${(el.y / 400) * 100}% - var(--r))` }}
+                    className="group absolute flex -translate-x-1/2 flex-col items-center gap-1.5 [--r:2.125rem] sm:[--r:2.5rem]"
                   >
-                    {elements[k].label}
+                    <span
+                      className={`flex h-[4.25rem] w-[4.25rem] items-center justify-center rounded-full border transition-all duration-300 ease-calm sm:h-20 sm:w-20 ${
+                        selected
+                          ? "border-gold bg-forest text-white ring-2 ring-gold ring-offset-2 ring-offset-ivory"
+                          : "border-forest/50 bg-ivory text-forest group-hover:border-forest group-hover:bg-sage/30"
+                      }`}
+                    >
+                      <Icon aria-hidden="true" strokeWidth={1.25} className="h-7 w-7 sm:h-8 sm:w-8" />
+                    </span>
+                    <span className={`font-serif text-[1.0625rem] font-medium leading-none sm:text-[1.2rem] ${selected ? "text-forest" : "text-forest/80"}`}>{el.label}</span>
                   </button>
                 );
               })}
