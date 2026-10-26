@@ -12,14 +12,14 @@ export const verifiedTestimonials: Testimonial[] = [];
 export default function Testimonials({ items = verifiedTestimonials }: { items?: Testimonial[] }) {
   return (
     <section id="experiences" aria-labelledby="experiences-heading" className="bg-sage/15 section-y">
-      <div className="container-x grid gap-5 lg:grid-cols-12 lg:gap-12">
-        <Reveal className="lg:col-span-5">
+      <div className="container-x grid items-start gap-5 lg:grid-cols-[40fr_60fr] lg:gap-12">
+        <Reveal>
           <h2 id="experiences-heading" className="h2 max-w-[16ch]">
             Experiences shared with care.
           </h2>
         </Reveal>
 
-        <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.08}>
+        <Reveal delay={0.08}>
           {items.length === 0 ? (
             <div className="border-l border-gold pl-5 sm:pl-8">
               <p className="font-serif text-[clamp(1.375rem,1.1rem+1.2vw,2rem)] italic leading-[1.3] text-forest">

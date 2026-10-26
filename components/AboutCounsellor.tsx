@@ -8,8 +8,8 @@ export default function AboutCounsellor() {
   const { portraitSlot } = siteConfig.images;
   return (
     <section id="about" aria-labelledby="about-heading" className="section-y">
-      <div className="container-x grid items-start gap-8 lg:grid-cols-12 lg:items-center lg:gap-10">
-        <Reveal className="relative w-full max-w-[15rem] sm:max-w-[19rem] lg:col-span-5 lg:max-w-[22rem]">
+      <div className="container-x grid items-start gap-8 lg:grid-cols-[40fr_60fr] lg:items-center lg:gap-12">
+        <Reveal className="relative w-full max-w-[15rem] sm:max-w-[19rem] lg:max-w-[26rem]">
           <div aria-hidden="true" className="absolute inset-0 hidden -translate-x-3 translate-y-3 border border-gold/70 sm:block" />
           <div className="relative aspect-[4/5] overflow-hidden bg-sage/20">
             {counsellor.photo ? (
@@ -24,7 +24,7 @@ export default function AboutCounsellor() {
           </div>
         </Reveal>
 
-        <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.08}>
+        <Reveal delay={0.08}>
           <h2 id="about-heading" className="h2">
             A little about me.
           </h2>
@@ -36,7 +36,7 @@ export default function AboutCounsellor() {
             <p className="body-copy">
               I’m a counselling professional with a Master’s degree in Clinical Psychology and training in Cognitive Behavioural Therapy (CBT).
             </p>
-            <p className="lede max-w-[34rem]">
+            <p className="lede justify-copy max-w-[40rem]">
               I believe that sometimes, what we need most is not advice, but a space where we can slow down, feel heard, and understand what is happening within us.
             </p>
             <p className="body-copy">

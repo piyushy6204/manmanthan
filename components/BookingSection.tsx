@@ -13,8 +13,8 @@ export default function BookingSection() {
 
   return (
     <section id="contact" aria-labelledby="contact-heading" className="bg-sage/15 section-y">
-      <div className="container-x grid gap-8 lg:grid-cols-12 lg:gap-12">
-        <Reveal className="lg:col-span-5">
+      <div className="container-x grid items-start gap-7 lg:grid-cols-[40fr_60fr] lg:gap-12">
+        <Reveal>
           <h2 id="contact-heading" className="h2">
             Your space to begin.
           </h2>
@@ -45,7 +45,7 @@ export default function BookingSection() {
           </p>
         </Reveal>
 
-        <Reveal className="lg:col-span-7" delay={0.08}>
+        <Reveal delay={0.08}>
           <BookingForm />
         </Reveal>
       </div>

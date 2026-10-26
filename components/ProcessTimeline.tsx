@@ -17,7 +17,7 @@ export default function ProcessTimeline() {
     <section id="process" aria-labelledby="process-heading" className="bg-sage/15 section-y">
       <div className="container-x">
         <Reveal>
-          <h2 id="process-heading" className="h2 max-w-[20ch]">
+          <h2 id="process-heading" className="h2 text-center sm:whitespace-nowrap">
             Taking the first step can be simple.
           </h2>
         </Reveal>
@@ -48,7 +48,7 @@ export default function ProcessTimeline() {
                 <p className="font-serif text-[1.375rem] leading-none text-forest/70">{s.n}</p>
               </div>
               <h3 className="h3 mt-2">{s.title}</h3>
-              <p className="mt-1.5 max-w-[18rem] text-[0.9375rem] leading-[1.65] text-ink/90">{s.text}</p>
+              <p className="mt-1.5 max-w-[18rem] justify-copy text-[0.9375rem] leading-[1.65] text-ink/90">{s.text}</p>
             </motion.li>
           ))}
         </ol>

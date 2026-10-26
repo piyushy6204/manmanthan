@@ -30,7 +30,7 @@ export default function ConvenienceSection() {
               >
                 <Icon aria-hidden="true" strokeWidth={1.1} className="h-7 w-7 text-forest" />
                 <h3 className="h3 mt-3">{title}</h3>
-                <p className="mt-1.5 text-[0.9375rem] leading-[1.65] text-ink/90">{text}</p>
+                <p className="mt-1.5 justify-copy text-[0.9375rem] leading-[1.65] text-ink/90">{text}</p>
               </li>
             ))}
           </ul>

@@ -38,8 +38,8 @@ export default function CBTSection() {
 
   return (
     <section id="approach" aria-labelledby="approach-heading" className="section-y">
-      <div className="container-x grid gap-8 lg:grid-cols-12 lg:gap-12">
-        <Reveal className="lg:col-span-5">
+      <div className="container-x grid items-start gap-8 lg:grid-cols-[45fr_55fr] lg:gap-12">
+        <Reveal>
           <h2 id="approach-heading" className="h2">
             Understanding Cognitive Behavioural Therapy.
           </h2>
@@ -58,7 +58,7 @@ export default function CBTSection() {
           </div>
         </Reveal>
 
-        <Reveal className="lg:col-span-6 lg:col-start-7" delay={0.08}>
+        <Reveal delay={0.08}>
           <div className="border border-gold/50 bg-sage/10 p-4 sm:p-7">
             <p className="text-center text-[0.875rem] text-ink/70">Select a point on the triangle to explore it.</p>
 
@@ -100,10 +100,10 @@ export default function CBTSection() {
                   transition={{ duration: 0.22 }}
                 >
                   <h3 className="h3">{current.label}</h3>
-                  <p className="mt-1.5 text-[0.9375rem] leading-[1.65] text-ink/90">{current.meaning}</p>
+                  <p className="mt-1.5 justify-copy text-[0.9375rem] leading-[1.65] text-ink/90">{current.meaning}</p>
                   <p className="mt-3 text-[0.875rem] text-ink/70">{current.exampleLabel}</p>
                   <p className="font-serif text-[1.3rem] italic leading-snug text-forest">{current.example}</p>
-                  <p className="mt-3 text-[0.9375rem] leading-[1.65] text-ink/90">{current.link}</p>
+                  <p className="mt-3 justify-copy text-[0.9375rem] leading-[1.65] text-ink/90">{current.link}</p>
                 </motion.div>
               </AnimatePresence>
             </div>

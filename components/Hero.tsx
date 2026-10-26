@@ -11,10 +11,10 @@ export default function Hero() {
   const { heroEmblem } = siteConfig.images;
   return (
     <section id="home" aria-labelledby="hero-heading" className="relative overflow-hidden">
-      <div className="container-x grid items-center gap-8 pb-12 pt-3 sm:gap-10 sm:pb-16 sm:pt-6 lg:min-h-[min(44rem,calc(100svh-var(--header-h)))] lg:grid-cols-12 lg:gap-10 lg:py-10">
-        <motion.div className="lg:col-span-7" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
+      <div className="container-x grid items-center gap-8 pb-12 pt-3 sm:gap-10 sm:pb-16 sm:pt-6 lg:min-h-[min(44rem,calc(100svh-var(--header-h)))] lg:grid-cols-[55fr_45fr] lg:gap-12 lg:py-10">
+        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, ease }}>
           <p className="eyebrow">A Space for You</p>
-          <h1 id="hero-heading" className="display mt-3 max-w-[22ch]">
+          <h1 id="hero-heading" className="display mt-4 max-w-[22ch]">
             Sometimes, all you need is a moment to pause.
           </h1>
           <p className="mt-4 max-w-[31rem] text-base leading-[1.7] text-ink/85 sm:text-[1.0625rem]">
@@ -34,7 +34,7 @@ export default function Hero() {
         </motion.div>
 
         {/* Arch composition. Carries the brand emblem until a natural photograph is supplied (see lib/site-config.ts). */}
-        <div className="relative mx-auto w-full max-w-[13.5rem] sm:max-w-[19rem] lg:col-span-5 lg:max-w-[24rem] lg:justify-self-end">
+        <div className="relative mx-auto w-full max-w-[13.5rem] sm:max-w-[19rem] lg:max-w-[26rem] lg:justify-self-end">
           <div aria-hidden="true" className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-t-full border border-gold/70 sm:translate-x-4 sm:translate-y-4" />
           <motion.div
             className="relative aspect-[4/4.7] overflow-hidden rounded-t-full bg-sage/20"

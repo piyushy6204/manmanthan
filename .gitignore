@@ -1,12 +1,5 @@
-@"
-node_modules/
-.next/
-out/
-build/
-dist/
+node_modules
+.next
+.env*.local
 .env
-.env.*
-!.env.example
-.vercel/
-.DS_Store
-"@ | Set-Content .gitignore
+next-env.d.ts

@@ -9,8 +9,8 @@ export default function Footer() {
   return (
     <footer className="on-dark bg-forest text-ivory">
       <div className="container-x pb-8 pt-12 lg:pt-16">
-        <div className="grid gap-9 lg:grid-cols-12 lg:gap-8">
-          <div className="lg:col-span-5">
+        <div className="grid gap-9 lg:grid-cols-[40fr_60fr] lg:gap-12">
+          <div>
             <div className="inline-block bg-[#FCF8F3] p-1">
               <Image src={siteConfig.images.logoFull.src} alt={siteConfig.images.logoFull.alt} width={1000} height={1000} sizes="160px" className="h-auto w-28 sm:w-36" />
             </div>
@@ -20,7 +20,7 @@ export default function Footer() {
             </p>
           </div>
 
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-8 lg:col-span-7 lg:grid-cols-3">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-8 lg:grid-cols-3">
             <div>
               <h2 className="font-serif text-[1.125rem] text-ivory">Explore</h2>
               <ul className="mt-3 space-y-0.5">

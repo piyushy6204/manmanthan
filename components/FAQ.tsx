@@ -41,14 +41,14 @@ export default function FAQ() {
 
   return (
     <section id="faq" aria-labelledby="faq-heading" className="section-y">
-      <div className="container-x grid gap-6 lg:grid-cols-12 lg:gap-12">
-        <Reveal className="lg:col-span-4">
+      <div className="container-x grid items-start gap-5 lg:grid-cols-[35fr_65fr] lg:gap-12">
+        <Reveal>
           <h2 id="faq-heading" className="h2 max-w-[14ch] lg:sticky lg:top-24">
             Questions you may have.
           </h2>
         </Reveal>
 
-        <Reveal className="lg:col-span-7 lg:col-start-6" delay={0.08}>
+        <Reveal delay={0.08}>
           <div className="border-t border-gold/50">
             {faqs.map((f, i) => {
               const open = openIndex === i;
