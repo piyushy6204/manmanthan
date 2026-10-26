@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---------- Design tokens: Classic Serenity ---------- */
+:root {
+  --forest: 7 63 50;     /* #073F32 primary buttons, headings, nav accents */
+  --sage: 169 187 168;   /* #A9BBA8 secondary surfaces, subtle highlights */
+  --ivory: 250 247 240;  /* #FAF7F0 main background */
+  --gold: 201 154 69;    /* #C99A45 fine borders, small accents */
+  --ink: 41 45 41;       /* #292D29 body text */
+  --danger: 143 40 40;   /* form errors only */
+
+  --header-h: 3.5rem;
+}
+@media (min-width: 1024px) { :root { --header-h: 4.5rem; } }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 0.5rem);
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+body {
+  @apply bg-ivory font-sans text-base leading-[1.7] text-ink antialiased;
+  overflow-x: hidden;
+}
+
+:focus-visible { outline: 2px solid rgb(var(--forest)); outline-offset: 3px; border-radius: 2px; }
+.on-dark :focus-visible { outline-color: rgb(var(--ivory)); }
+::selection { background: rgb(var(--sage)); color: rgb(var(--forest)); }
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-[72rem] px-5 sm:px-8 lg:px-10; }
+  /* One spacing rhythm for every section */
+  .section-y { @apply py-14 sm:py-[4.5rem] lg:py-24; }
+
+  /* ---------- Typography system ---------- */
+  /* Display (hero only): ~34px mobile, ~46px tablet, ~58px desktop */
+  .display { @apply font-serif font-medium text-forest [text-wrap:balance];
+             font-size: clamp(2.125rem, 1.2rem + 3.6vw, 3.625rem); line-height: 1.12; letter-spacing: -0.012em; }
+  /* Section headings: ~28px mobile, ~35px tablet, ~44px desktop */
+  .h2 { @apply font-serif font-medium text-forest [text-wrap:balance];
+        font-size: clamp(1.75rem, 1.2rem + 2vw, 2.75rem); line-height: 1.14; letter-spacing: -0.01em; }
+  /* Item headings (cards, steps, FAQ-style titles) */
+  .h3 { @apply font-serif font-medium text-forest;
+        font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.5rem); line-height: 1.2; }
+  /* Subheading / lead line */
+  .lede { @apply font-serif italic text-forest/90 [text-wrap:balance];
+          font-size: clamp(1.1875rem, 1.05rem + 0.55vw, 1.4rem); line-height: 1.42; }
+  .eyebrow { @apply font-sans text-[0.8125rem] font-medium uppercase tracking-[0.14em] text-forest sm:text-[0.875rem]; }
+  .body-copy { @apply max-w-[36rem] text-base leading-[1.7] text-ink/90 sm:text-[1.0625rem]; }
+  .small-copy { @apply text-[0.875rem] leading-[1.6] text-ink/70; }
+
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[3px] border px-6 py-2.5 text-[0.9375rem] font-medium
+           transition-colors duration-300 ease-calm disabled:cursor-not-allowed disabled:opacity-60;
+  }
+  .btn-primary { @apply border-forest bg-forest text-white hover:border-ink hover:bg-ink; }
+  .btn-secondary { @apply border-forest bg-transparent text-forest hover:bg-forest/[0.07]; }
+  .btn-light { @apply border-ivory bg-ivory text-forest hover:border-sage hover:bg-sage; }
+  .btn-light-outline { @apply border-ivory/60 bg-transparent text-ivory hover:border-ivory hover:bg-ivory/10; }
+
+  .field-label { @apply mb-1.5 block text-[0.9375rem] font-medium text-forest; }
+  .field {
+    @apply block min-h-[46px] w-full rounded-[3px] border border-forest/30 bg-ivory px-3.5 py-2 text-base text-ink
+           placeholder:text-ink/50 transition-colors duration-200 hover:border-forest/60 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/25;
+  }
+  .field[aria-invalid="true"] { @apply border-danger ring-1 ring-danger/40; }
+}
+
+@supports (padding: max(0px)) {
+  .safe-bottom { padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+}
