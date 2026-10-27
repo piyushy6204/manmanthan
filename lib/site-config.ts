@@ -52,10 +52,10 @@ export const siteConfig = {
     logoWordmark: { src: "/images/logo-wordmark.png", alt: "Mann Manthan" },
     /** Emblem and wordmark from the original logo, arranged side by side for the header and drawer. */
     logoLockup: { src: "/images/logo-lockup.png", alt: "Mann Manthan", width: 1209, height: 300 },
-    /** Decorative natural-light textures. Replace with real photography when available (keep the same file names or update here). */
-    leafLight: { src: "/images/leaf-light-wide.jpg", width: 1600, height: 900 },
-    leafSage: { src: "/images/leaf-sage-wide.jpg", width: 2400, height: 600 },
-    portraitSlot: { src: "/images/light-portrait-slot.jpg", width: 900, height: 1125 },
+    /** Watercolour botanical illustrations in the logo palette (placeholders until real photography is supplied). */
+    bannerLight: { src: "/images/botanical-intro.jpg", width: 2400, height: 525 },
+    bannerDark: { src: "/images/botanical-dark.jpg", width: 2400, height: 450 },
+    portraitSlot: { src: "/images/botanical-portrait.jpg", width: 900, height: 1125 },
     heroEmblem: { src: "/images/logo-emblem.png", alt: "" },
   },
 } as const;

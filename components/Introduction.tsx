@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
 
 export default function Introduction() {
-  const { leafLight } = siteConfig.images;
+  const { bannerLight } = siteConfig.images;
   return (
     <section id="introduction" aria-labelledby="intro-heading" className="bg-sage/15 section-y">
       <div className="container-x">
@@ -33,7 +33,7 @@ export default function Introduction() {
 
         <Reveal className="mt-10 lg:mt-12">
           <div className="relative aspect-[16/6] overflow-hidden sm:aspect-[24/7] lg:aspect-[32/7]">
-            <Image src={leafLight.src} alt="" width={leafLight.width} height={leafLight.height} sizes="100vw" className="h-full w-full object-cover" />
+            <Image src={bannerLight.src} alt="" width={bannerLight.width} height={bannerLight.height} sizes="100vw" className="h-full w-full object-cover" />
           </div>
           <figure className="mx-auto mt-8 max-w-[52rem] text-center lg:mt-10">
             <span aria-hidden="true" className="mx-auto mb-5 block h-px w-12 bg-gold" />

@@ -53,7 +53,7 @@ function AreaRow({ area }: { area: (typeof areasOfHelp)[number] }) {
 }
 
 export default function AreasOfHelp() {
-  const { leafSage } = siteConfig.images;
+  const { bannerDark } = siteConfig.images;
   return (
     <section id="areas" aria-labelledby="areas-heading" className="on-dark bg-forest section-y">
       <div className="container-x">
@@ -67,7 +67,7 @@ export default function AreasOfHelp() {
         </Reveal>
 
         <Reveal className="relative mt-8 aspect-[16/5] overflow-hidden sm:aspect-[24/6] lg:mt-10 lg:aspect-[32/6]">
-          <Image src={leafSage.src} alt="" width={leafSage.width} height={leafSage.height} sizes="100vw" className="h-full w-full object-cover" />
+          <Image src={bannerDark.src} alt="" width={bannerDark.width} height={bannerDark.height} sizes="100vw" className="h-full w-full object-cover" />
           <div aria-hidden="true" className="absolute inset-0 border border-gold/50" />
         </Reveal>
 

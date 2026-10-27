@@ -89,7 +89,7 @@ export default function BookingForm() {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby="privacy-note" className="border border-gold/60 bg-ivory p-5 sm:p-8">
+    <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby="privacy-note" className="border border-gold/60 bg-ivory p-5 sm:p-7 lg:p-6">
       {errorCount > 0 && (
         <div ref={summaryRef} tabIndex={-1} role="alert" className="mb-6 border border-danger/50 bg-danger/5 p-4 text-[0.95rem] text-danger outline-none">
           Please check {errorCount === 1 ? "one field" : `${errorCount} fields`} below. Details are shown next to each.
@@ -122,33 +122,33 @@ export default function BookingForm() {
         </div>
       )}
 
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div className="sm:col-span-2">
+      <div className="grid gap-5 sm:grid-cols-2 lg:gap-x-5 lg:gap-y-4">
+        <div className="sm:order-1">
           <label htmlFor="name" className="field-label">Full name</label>
           <input id="name" name="name" type="text" autoComplete="name" className="field" value={values.name} onChange={(e) => set("name", e.target.value)}
             aria-invalid={!!errors.name} aria-describedby={describe("name")} aria-required="true" />
           <FieldError id="name-error" message={errors.name} />
         </div>
 
-        <div>
+        <div className="sm:order-2">
           <label htmlFor="email" className="field-label">Email address</label>
           <input id="email" name="email" type="email" inputMode="email" autoComplete="email" className="field" value={values.email} onChange={(e) => set("email", e.target.value)}
             aria-invalid={!!errors.email} aria-describedby={describe("email")} aria-required="true" />
           <FieldError id="email-error" message={errors.email} />
         </div>
 
-        <div>
+        <div className="sm:order-3">
           <label htmlFor="phone" className="field-label">Phone number</label>
           <input id="phone" name="phone" type="tel" inputMode="tel" autoComplete="tel" className="field" value={values.phone} onChange={(e) => set("phone", e.target.value)}
             aria-invalid={!!errors.phone} aria-describedby={describe("phone")} aria-required="true" />
           <FieldError id="phone-error" message={errors.phone} />
         </div>
 
-        <fieldset className="sm:col-span-2" aria-describedby={describe("format")}>
+        <fieldset className="sm:order-5 sm:col-span-2" aria-describedby={describe("format")}>
           <legend className="field-label">Preferred session format</legend>
           <div className="grid grid-cols-2 gap-3">
             {(["Online", "Offline"] as const).map((opt, i) => (
-              <label key={opt} className={`flex min-h-[46px] cursor-pointer items-center justify-center rounded-[3px] border px-4 py-2.5 text-base transition-colors duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-forest ${
+              <label key={opt} className={`flex min-h-[46px] cursor-pointer items-center justify-center rounded-[3px] border px-4 py-2.5 text-base lg:min-h-[40px] lg:py-1.5 lg:text-[0.9375rem] transition-colors duration-200 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-forest ${
                 values.format === opt ? "border-forest bg-forest text-white" : "border-forest/30 text-forest hover:border-forest/60"
               }`}>
                 <input type="radio" name="format" value={opt} className="sr-only" checked={values.format === opt} onChange={() => set("format", opt)}
@@ -160,21 +160,21 @@ export default function BookingForm() {
           <FieldError id="format-error" message={errors.format} />
         </fieldset>
 
-        <div className="sm:col-span-2">
+        <div className="sm:order-4">
           <label htmlFor="date" className="field-label">
             Preferred appointment date <span className="font-normal text-ink/70">(optional)</span>
           </label>
-          <input id="date" name="date" type="date" min={today || undefined} className="field sm:max-w-xs" value={values.date} onChange={(e) => set("date", e.target.value)}
+          <input id="date" name="date" type="date" min={today || undefined} className="field" value={values.date} onChange={(e) => set("date", e.target.value)}
             aria-invalid={!!errors.date} aria-describedby={describe("date", "date-hint")} />
           <p id="date-hint" className="mt-1.5 text-[0.9rem] text-ink/70">A guide only. The final time is agreed with you.</p>
           <FieldError id="date-error" message={errors.date} />
         </div>
 
-        <div className="sm:col-span-2">
+        <div className="sm:order-6 sm:col-span-2">
           <label htmlFor="message" className="field-label">
             Message <span className="font-normal text-ink/70">(optional)</span>
           </label>
-          <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y" value={values.message} onChange={(e) => set("message", e.target.value)}
+          <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y lg:h-24 lg:min-h-0" value={values.message} onChange={(e) => set("message", e.target.value)}
             aria-invalid={!!errors.message} aria-describedby={describe("message", "message-hint")} />
           <p id="message-hint" className="mt-1.5 text-[0.9rem] leading-snug text-ink/70">
             A line or two is plenty. Please don&apos;t share detailed personal or health information here. {values.message.length}/{MESSAGE_MAX}
@@ -183,12 +183,12 @@ export default function BookingForm() {
         </div>
 
         {/* Honeypot: hidden from people and assistive tech. */}
-        <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden">
+        <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden sm:order-7">
           <label htmlFor="website">Leave this field empty</label>
           <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" value={values.website} onChange={(e) => set("website", e.target.value)} />
         </div>
 
-        <div className="sm:col-span-2">
+        <div className="sm:order-8 sm:col-span-2">
           <div className="flex items-start gap-3">
             <input id="consent" name="consent" type="checkbox" checked={values.consent} onChange={(e) => set("consent", e.target.checked)}
               className="mt-1 h-6 w-6 shrink-0 cursor-pointer accent-forest" aria-invalid={!!errors.consent} aria-describedby={describe("consent")} aria-required="true" />
@@ -206,7 +206,7 @@ export default function BookingForm() {
         Submitting this form sends an enquiry. It does not book or confirm a session.
       </p>
 
-      <button type="submit" className="btn btn-primary mt-6 w-full sm:w-auto" disabled={status === "submitting"}>
+      <button type="submit" className="btn btn-primary mt-6 w-full sm:w-auto lg:mt-5" disabled={status === "submitting"}>
         {status === "submitting" ? "Sending enquiry" : "Submit Enquiry"}
       </button>
     </form>

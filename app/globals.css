@@ -68,9 +68,9 @@ body {
   .btn-light { @apply border-ivory bg-ivory text-forest hover:border-sage hover:bg-sage; }
   .btn-light-outline { @apply border-ivory/60 bg-transparent text-ivory hover:border-ivory hover:bg-ivory/10; }
 
-  .field-label { @apply mb-1.5 block text-[0.9375rem] font-medium text-forest; }
+  .field-label { @apply mb-1.5 block text-[0.9375rem] font-medium text-forest lg:mb-1 lg:text-[0.875rem]; }
   .field {
-    @apply block min-h-[46px] w-full rounded-[3px] border border-forest/30 bg-ivory px-3.5 py-2 text-base text-ink
+    @apply block min-h-[46px] w-full rounded-[3px] border border-forest/30 bg-ivory px-3.5 py-2 text-base text-ink lg:min-h-[40px] lg:py-1.5 lg:text-[0.9375rem]
            placeholder:text-ink/50 transition-colors duration-200 hover:border-forest/60 focus:border-forest focus:outline-none focus:ring-2 focus:ring-forest/25;
   }
   .field[aria-invalid="true"] { @apply border-danger ring-1 ring-danger/40; }
