@@ -1,7 +1,7 @@
 import Reveal from "./Reveal";
 
 /**
- * Reusable testimonial section.
+ * Reusable testimonial section
  * Only add entries here with the client's explicit written permission. Never invent names, ratings or stories.
  * Example shape: { quote: "…", attribution: "Client, first name or initials only if they agree" }
  */
