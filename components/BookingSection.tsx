@@ -48,7 +48,7 @@ export default function BookingSection() {
 
           {/* Fills the remaining height beside the form on desktop so both columns end together */}
           <div className="relative mt-6 hidden min-h-[13rem] flex-1 overflow-hidden lg:block">
-            <Image src={contactArt.src} alt="" fill sizes="(min-width: 1024px) 40vw, 0px" className="object-cover" />
+            <Image src={contactArt.src} alt="" fill sizes="(min-width: 1024px) 40vw, 0px" className="object-cover object-[60%_50%]" />
           </div>
         </Reveal>
 

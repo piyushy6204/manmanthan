@@ -52,12 +52,13 @@ export const siteConfig = {
     logoWordmark: { src: "/images/logo-wordmark.png", alt: "Mann Manthan" },
     /** Emblem and wordmark from the original logo, arranged side by side for the header and drawer. */
     logoLockup: { src: "/images/logo-lockup.png", alt: "Mann Manthan", width: 1209, height: 300 },
-    /** Watercolour botanical illustrations in the logo palette (placeholders until real photography is supplied). */
-    bannerLight: { src: "/images/botanical-intro.jpg", width: 2400, height: 525 },
-    bannerDark: { src: "/images/botanical-dark.jpg", width: 2400, height: 450 },
-    contactArt: { src: "/images/botanical-contact.jpg", width: 1200, height: 760 },
-    portraitSlot: { src: "/images/botanical-portrait.jpg", width: 900, height: 1125 },
-    heroEmblem: { src: "/images/logo-emblem.png", alt: "" },
+    /** Hero photograph (shown in the arch). To go back to the logo emblem, point `src` at /images/logo-emblem.png. */
+    heroImage: { src: "/images/hero-eucalyptus.jpg", alt: "A eucalyptus stem in a ceramic vase, lit by soft morning sunlight", width: 896, height: 1053 },
+    /** Section imagery (AI-generated stand-ins; swap for your own photography at the same crop whenever you like). */
+    bannerLight: { src: "/images/intro-diptych.jpg", width: 1376, height: 426 },
+    bannerDark: { src: "/images/areas-dark.jpg", width: 1376, height: 459 },
+    contactArt: { src: "/images/contact-window.jpg", width: 1376, height: 768 },
+    portraitSlot: { src: "/images/about-corner.jpg", width: 840, height: 1050 },
   },
 } as const;
 

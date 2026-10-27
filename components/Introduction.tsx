@@ -32,7 +32,7 @@ export default function Introduction() {
         </Reveal>
 
         <Reveal className="mt-10 lg:mt-12">
-          <div className="relative aspect-[16/6] overflow-hidden sm:aspect-[24/7] lg:aspect-[32/7]">
+          <div className="relative aspect-[16/7] overflow-hidden sm:aspect-[8/3] lg:aspect-[1376/426]">
             <Image src={bannerLight.src} alt="" width={bannerLight.width} height={bannerLight.height} sizes="100vw" className="h-full w-full object-cover" />
           </div>
           <figure className="mx-auto mt-8 max-w-[52rem] text-center lg:mt-10">

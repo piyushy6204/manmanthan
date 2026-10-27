@@ -66,7 +66,7 @@ export default function AreasOfHelp() {
           </p>
         </Reveal>
 
-        <Reveal className="relative mt-8 aspect-[16/5] overflow-hidden sm:aspect-[24/6] lg:mt-10 lg:aspect-[32/6]">
+        <Reveal className="relative mt-8 aspect-[16/7] overflow-hidden sm:aspect-[5/2] lg:mt-10 lg:aspect-[1376/459]">
           <Image src={bannerDark.src} alt="" width={bannerDark.width} height={bannerDark.height} sizes="100vw" className="h-full w-full object-cover" />
           <div aria-hidden="true" className="absolute inset-0 border border-gold/50" />
         </Reveal>

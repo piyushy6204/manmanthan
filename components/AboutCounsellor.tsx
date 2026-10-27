@@ -17,7 +17,7 @@ export default function AboutCounsellor() {
             ) : (
               // Image slot: shown until Harsha's actual photograph is supplied. No portrait is fabricated.
               <>
-                <Image src={portraitSlot.src} alt="" width={portraitSlot.width} height={portraitSlot.height} sizes="(min-width: 1024px) 22rem, 60vw" className="h-full w-full object-cover" />
+                <Image src={portraitSlot.src} alt="" width={portraitSlot.width} height={portraitSlot.height} sizes="(min-width: 1024px) 22rem, 60vw" className="h-full w-full object-cover object-bottom" />
                 <p className="absolute inset-x-0 bottom-0 bg-ivory/85 px-4 py-2.5 text-center font-serif text-[1.0625rem] italic text-forest">Portrait to be added</p>
               </>
             )}

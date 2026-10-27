@@ -8,7 +8,7 @@ import Sprig from "./Sprig";
 const ease = [0.22, 0.61, 0.36, 1] as const;
 
 export default function Hero() {
-  const { heroEmblem } = siteConfig.images;
+  const { heroImage } = siteConfig.images;
   return (
     <section id="home" aria-labelledby="hero-heading" className="relative overflow-hidden">
       <div className="container-x grid items-center gap-8 pb-12 pt-3 sm:gap-10 sm:pb-16 sm:pt-6 lg:min-h-[min(44rem,calc(100svh-var(--header-h)))] lg:grid-cols-[55fr_45fr] lg:gap-12 lg:py-10">
@@ -33,23 +33,22 @@ export default function Hero() {
           </div>
         </motion.div>
 
-        {/* Arch composition. Carries the brand emblem until a natural photograph is supplied (see lib/site-config.ts). */}
+        {/* Arch composition with the hero photograph (see lib/site-config.ts) */}
         <div className="relative mx-auto w-full max-w-[13.5rem] sm:max-w-[19rem] lg:max-w-[26rem] lg:justify-self-end">
           <div aria-hidden="true" className="absolute inset-0 translate-x-2.5 translate-y-2.5 rounded-t-full border border-gold/70 sm:translate-x-4 sm:translate-y-4" />
           <motion.div
-            className="relative aspect-[4/4.7] overflow-hidden rounded-t-full bg-sage/20"
+            className="relative aspect-[896/1053] overflow-hidden rounded-t-full bg-sage/20"
             initial={{ clipPath: "inset(100% 0 0 0)" }}
             animate={{ clipPath: "inset(0% 0 0 0)" }}
             transition={{ duration: 0.9, ease, delay: 0.1 }}
           >
             <Image
-              src={heroEmblem.src}
-              alt={heroEmblem.alt}
-              width={730}
-              height={650}
+              src={heroImage.src}
+              alt={heroImage.alt}
+              fill
               priority
-              sizes="(min-width: 1024px) 24rem, 60vw"
-              className="absolute inset-x-[5%] top-[17%] w-[90%] [mask-image:linear-gradient(to_bottom,black_80%,transparent_98%)]"
+              sizes="(min-width: 1024px) 26rem, 60vw"
+              className="object-cover"
             />
           </motion.div>
           <Sprig className="absolute -left-9 bottom-[-1rem] hidden h-32 w-20 text-sage sm:block" />
