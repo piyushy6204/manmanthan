@@ -83,3 +83,8 @@ body {
 /* CBT diagram: the arrows around the selected element draw once when chosen (disabled for reduced motion) */
 @keyframes cbt-flow { from { stroke-dashoffset: 200; } to { stroke-dashoffset: 0; } }
 .cbt-flow { stroke-dasharray: 200; animation: cbt-flow 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) 1 both; }
+
+/* Testimonials: ripples spreading outward, slow and soft. Static for reduced motion. */
+@keyframes ripple { 0% { transform: scale(0.15); opacity: 1; } 80%, 100% { transform: scale(1.5); opacity: 0; } }
+.ripple { animation: ripple 4.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite; }
+@media (prefers-reduced-motion: reduce) { .ripple { animation: none !important; transform: scale(0.6); opacity: 0.3; } }

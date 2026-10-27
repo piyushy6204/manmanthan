@@ -67,27 +67,16 @@ export default function CBTSection() {
 
   return (
     <section id="approach" aria-labelledby="approach-heading" className="section-y">
-      <div className="container-x grid items-start gap-8 lg:grid-cols-[45fr_55fr] lg:gap-12">
-        <Reveal>
+      <div className="container-x grid items-start gap-8 lg:grid-cols-[45fr_55fr] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-5">
+        {/* Mobile order: heading, then the interactive cycle, then the explanation. Desktop: text left, cycle right. */}
+        <Reveal className="lg:col-start-1 lg:row-start-1">
           <h2 id="approach-heading" className="h2">
             Understanding Cognitive Behavioural Therapy.
           </h2>
           <p className="lede mt-3">Small shifts in understanding can create new ways forward.</p>
-          <div className="mt-5 space-y-4">
-            <p className="body-copy">
-              Cognitive Behavioural Therapy, commonly known as CBT, helps people understand the connection between their thoughts, feelings and behaviours.
-            </p>
-            <p className="body-copy">
-              It introduces practical strategies for recognising unhelpful thinking patterns, exploring alternative perspectives, and developing healthier ways of
-              responding to difficult situations.
-            </p>
-            <p className="body-copy">
-              By learning to notice and work with these patterns, people can gradually build practical coping skills and greater self awareness.
-            </p>
-          </div>
         </Reveal>
 
-        <Reveal delay={0.08}>
+        <Reveal delay={0.08} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <div className="border border-gold/50 bg-sage/10 p-4 sm:p-7">
             <p className="text-center text-[0.875rem] text-ink/70">Select Thoughts, Feelings or Behaviours to explore the cycle.</p>
 
@@ -179,6 +168,19 @@ export default function CBTSection() {
               clinical assessment.
             </p>
           </div>
+        </Reveal>
+
+        <Reveal className="space-y-4 lg:col-start-1 lg:row-start-2">
+          <p className="body-copy">
+            Cognitive Behavioural Therapy, commonly known as CBT, helps people understand the connection between their thoughts, feelings and behaviours.
+          </p>
+          <p className="body-copy">
+            It introduces practical strategies for recognising unhelpful thinking patterns, exploring alternative perspectives, and developing healthier ways of
+            responding to difficult situations.
+          </p>
+          <p className="body-copy">
+            By learning to notice and work with these patterns, people can gradually build practical coping skills and greater self awareness.
+          </p>
         </Reveal>
       </div>
     </section>

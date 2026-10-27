@@ -166,7 +166,6 @@ export default function BookingForm() {
           </label>
           <input id="date" name="date" type="date" min={today || undefined} className="field" value={values.date} onChange={(e) => set("date", e.target.value)}
             aria-invalid={!!errors.date} aria-describedby={describe("date", "date-hint")} />
-          <p id="date-hint" className="mt-1.5 text-[0.9rem] text-ink/70 lg:sr-only">A guide only. The final time is agreed with you.</p>
           <FieldError id="date-error" message={errors.date} />
         </div>
 
@@ -177,7 +176,7 @@ export default function BookingForm() {
           <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y lg:h-20 lg:min-h-0" value={values.message} onChange={(e) => set("message", e.target.value)}
             aria-invalid={!!errors.message} aria-describedby={describe("message", "message-hint")} />
           <p id="message-hint" className="mt-1.5 text-[0.9rem] leading-snug text-ink/70">
-            A line or two is plenty. Please don&apos;t share detailed personal or health information here. {values.message.length}/{MESSAGE_MAX}
+             {values.message.length}/{MESSAGE_MAX}
           </p>
           <FieldError id="message-error" message={errors.message} />
         </div>
@@ -203,7 +202,7 @@ export default function BookingForm() {
       <p id="privacy-note" className="mt-5 small-copy">
         We use these details only to reply to your enquiry. See our{" "}
         <Link href="/privacy" className="text-forest underline underline-offset-4">Privacy Policy</Link>.
-        Submitting this form sends an enquiry. It does not book or confirm a session.<span className="hidden lg:inline"> Your preferred date is a guide only; the final time is agreed with you.</span>
+        Submitting this form sends an enquiry. It does not book or confirm a session.<span className="hidden lg:inline"></span>
       </p>
 
       <button type="submit" className="btn btn-primary mt-6 w-full sm:w-auto lg:mt-5" disabled={status === "submitting"}>

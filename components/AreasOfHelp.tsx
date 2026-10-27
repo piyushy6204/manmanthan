@@ -18,7 +18,7 @@ function AreaRow({ area }: { area: (typeof areasOfHelp)[number] }) {
     <li id={`area-${area.id}`} className="border-t border-sage/30 pb-4 pt-6">
       <Icon aria-hidden="true" strokeWidth={1.1} className="h-7 w-7 text-gold" />
       <h3 className="mt-3 font-serif text-[clamp(1.4rem,1.2rem+0.8vw,1.75rem)] font-medium leading-tight text-ivory">{area.name}</h3>
-      <p className="mt-1.5 max-w-[26rem] justify-copy text-base leading-[1.65] text-sage">{area.description}</p>
+      <p className="mt-1.5 max-w-[26rem] text-base leading-[1.65] text-sage md:min-h-[4.95rem]">{area.description}</p>
 
       <button
         type="button"
