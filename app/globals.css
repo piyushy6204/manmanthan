@@ -88,3 +88,31 @@ body {
 @keyframes ripple { 0% { transform: scale(0.15); opacity: 1; } 80%, 100% { transform: scale(1.5); opacity: 0; } }
 .ripple { animation: ripple 4.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite; }
 @media (prefers-reduced-motion: reduce) { .ripple { animation: none !important; transform: scale(0.6); opacity: 0.3; } }
+
+/* Shiny finish for the pull quote: forest text with a soft champagne-gold sheen that sweeps across now and then.
+   Static (no sweep) when the visitor prefers reduced motion. */
+.shine-text {
+  background-image: linear-gradient(105deg, rgb(var(--forest)) 0%, rgb(var(--forest)) 40%, color-mix(in srgb, rgb(var(--gold)) 88%, black) 50%, rgb(var(--forest)) 60%, rgb(var(--forest)) 100%);
+  background-size: 260% 100%;
+  background-position: 100% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: shine-sweep 8s ease-in-out infinite;
+}
+.shine-gold {
+  background-image: linear-gradient(135deg, rgb(var(--gold)) 0%, color-mix(in srgb, rgb(var(--gold)) 55%, white) 45%, rgb(var(--gold)) 70%, color-mix(in srgb, rgb(var(--gold)) 80%, black) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+@keyframes shine-sweep { 0%, 50% { background-position: 100% 0; } 100% { background-position: 0% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .shine-text { animation: none; background-position: 50% 0; background-image: linear-gradient(105deg, rgb(var(--forest)) 0%, color-mix(in srgb, rgb(var(--forest)) 72%, rgb(var(--gold))) 50%, rgb(var(--forest)) 100%); background-size: 100% 100%; }
+}
+
+/* Option A: a fine champagne-gold hairline where one section meets the next */
+main > section + section { border-top: 1px solid rgb(var(--gold) / 0.5); }
+footer { border-top: 1px solid rgb(var(--gold) / 0.5); }

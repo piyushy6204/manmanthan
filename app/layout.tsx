@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/cormorant-garamond/index.css";
-import "@fontsource-variable/cormorant-garamond/wght-italic.css";
-import "@fontsource-variable/dm-sans/index.css";
+import "@fontsource-variable/eb-garamond/index.css";
+import "@fontsource-variable/eb-garamond/wght-italic.css";
+import "@fontsource-variable/work-sans/index.css";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import MotionProvider from "@/components/MotionProvider";

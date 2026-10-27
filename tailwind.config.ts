@@ -16,8 +16,8 @@ const config: Config = {
         danger: token("danger"), // functional error state only
       },
       fontFamily: {
-        serif: ['"Cormorant Garamond Variable"', "Cormorant Garamond", "Georgia", "serif"],
-        sans: ['"DM Sans Variable"', "DM Sans", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        serif: ['"EB Garamond Variable"', "EB Garamond", "Georgia", "serif"],
+        sans: ['"Work Sans Variable"', "Work Sans", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
       },
       transitionTimingFunction: { calm: "cubic-bezier(0.22, 0.61, 0.36, 1)" },
     },

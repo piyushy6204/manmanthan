@@ -1,7 +1,8 @@
 "use client";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import { BatteryLow, CloudDrizzle, Flame, Minus, Plus, Sprout, Waves, Wind, type LucideIcon } from "lucide-react";
+import { BatteryLow, CloudDrizzle, Flame, Minus, Plus, Sprout, Waves, Wind, X, type LucideIcon } from "lucide-react";
 import { areasOfHelp } from "@/lib/areas";
 import { siteConfig } from "@/lib/site-config";
 import Image from "next/image";
@@ -58,81 +59,147 @@ function AreaRow({ area }: { area: (typeof areasOfHelp)[number] }) {
   );
 }
 
-/** Mobile only: photo tiles. Tapping a tile shows its description and expander in the panel below. */
-function AreaTiles() {
-  const [selected, setSelected] = useState<(typeof areasOfHelp)[number]["id"]>(areasOfHelp[0].id);
-  const [open, setOpen] = useState(false);
-  const area = areasOfHelp.find((a) => a.id === selected) ?? areasOfHelp[0];
-  const Icon = icons[area.icon];
-  const panelRef = useRef<HTMLDivElement>(null);
+type Area = (typeof areasOfHelp)[number];
+const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-  // The panel sits below the tiles; bring it into view after a tap so the change is never off-screen.
-  const showPanel = () =>
-    requestAnimationFrame(() => {
-      const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      panelRef.current?.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
-    });
+/** Mobile only: photo tiles. Tapping a tile opens a popup with the topic's description and session detail. */
+function AreaTiles() {
+  const [current, setCurrent] = useState<Area | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const triggerRef = useRef<HTMLElement | null>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => setMounted(true), []);
+
+  const close = useCallback(() => {
+    setCurrent(null);
+    triggerRef.current?.focus();
+  }, []);
+
+  // Lock background scroll, move focus into the popup, trap Tab, close on Escape.
+  const isOpen = current !== null;
+  useEffect(() => {
+    if (!isOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        close();
+        return;
+      }
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      const nodes = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE));
+      if (!nodes.length) return;
+      const first = nodes[0];
+      const last = nodes[nodes.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [isOpen, close]);
 
   return (
     <div className="mt-8 md:hidden">
       <ul className="grid grid-cols-2 gap-2.5">
-        {areasOfHelp.map((a) => {
-          const on = a.id === selected;
-          return (
-            <li key={a.id}>
-              <button
-                type="button"
-                aria-pressed={on}
-                aria-controls="area-panel"
-                onClick={() => {
-                  setSelected(a.id);
-                  setOpen(false);
-                  showPanel();
-                }}
-                className={`relative block aspect-[1/1.05] w-full overflow-hidden rounded-[3px] text-left outline-offset-2 transition-[outline-color,filter] duration-300 ${
-                  on ? "outline outline-2 outline-gold" : "outline outline-2 outline-transparent"
-                }`}
-              >
-                <Image src={a.photo} alt="" fill sizes="(max-width: 767px) 46vw, 0px" className={`object-cover transition-[filter] duration-300 ${on ? "" : "brightness-[0.8]"}`} />
-                <span className="absolute inset-x-0 top-0 bg-forest/85 px-2.5 py-2.5 font-serif text-[1.1875rem] font-bold leading-[1.15] text-ivory [text-shadow:0_1px_3px_rgba(0,0,0,0.45)]">{a.name}</span>
-              </button>
-            </li>
-          );
-        })}
+        {areasOfHelp.map((a) => (
+          <li key={a.id}>
+            <button
+              type="button"
+              aria-haspopup="dialog"
+              onClick={(e) => {
+                triggerRef.current = e.currentTarget;
+                setCurrent(a);
+              }}
+              className="relative block aspect-[1/1.05] w-full overflow-hidden rounded-[3px] text-left transition-transform duration-200 active:scale-[0.98]"
+            >
+              <Image src={a.photo} alt="" fill sizes="(max-width: 767px) 46vw, 0px" className="object-cover" />
+              <span className="absolute inset-x-0 top-0 bg-forest/85 px-2.5 py-2.5 font-serif text-[1.1875rem] font-bold leading-[1.15] text-ivory [text-shadow:0_1px_3px_rgba(0,0,0,0.45)]">{a.name}</span>
+            </button>
+          </li>
+        ))}
       </ul>
 
-      <div ref={panelRef} id="area-panel" aria-live="polite" className="mt-3.5 scroll-mb-24 border border-gold/60 bg-ivory p-4 text-ink">
-        <div className="flex items-center gap-2.5">
-          <Icon aria-hidden="true" strokeWidth={1.25} className="h-6 w-6 shrink-0 text-gold" />
-          <h3 className="font-serif text-[1.625rem] font-medium leading-none text-forest">{area.name}</h3>
+      {mounted &&
+        createPortal(
+          <AnimatePresence>
+            {current && <AreaPopup key={current.id} area={current} dialogRef={dialogRef} closeRef={closeRef} onClose={close} />}
+          </AnimatePresence>,
+          document.body
+        )}
+    </div>
+  );
+}
+
+function AreaPopup({
+  area,
+  dialogRef,
+  closeRef,
+  onClose,
+}: {
+  area: Area;
+  dialogRef: React.RefObject<HTMLDivElement | null>;
+  closeRef: React.RefObject<HTMLButtonElement | null>;
+  onClose: () => void;
+}) {
+  const Icon = icons[area.icon];
+  return (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 md:hidden" style={{ paddingTop: "max(1rem, env(safe-area-inset-top))", paddingBottom: "max(1rem, env(safe-area-inset-bottom))" }}>
+      <motion.div
+        className="absolute inset-0 bg-forest/70 backdrop-blur-[2px]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25 }}
+        onClick={onClose}
+        aria-hidden="true"
+      />
+      <motion.div
+        ref={dialogRef}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="area-popup-title"
+        className="relative max-h-full w-full max-w-[26rem] overflow-y-auto border border-gold/60 bg-ivory text-ink shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)]"
+        initial={{ opacity: 0, y: 24, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 16, scale: 0.98 }}
+        transition={{ duration: 0.28, ease: [0.22, 0.61, 0.36, 1] }}
+      >
+        <div className="relative aspect-[16/10] w-full">
+          <Image src={area.photoWide} alt="" fill sizes="26rem" className="object-cover" />
+          <button
+            ref={closeRef}
+            type="button"
+            onClick={onClose}
+            aria-label="Close"
+            className="absolute right-2.5 top-2.5 flex h-11 w-11 items-center justify-center rounded-full bg-forest/85 text-ivory hover:bg-forest"
+          >
+            <X size={22} strokeWidth={1.5} aria-hidden="true" />
+          </button>
         </div>
-        <p className="mt-2.5 text-[0.9375rem] leading-[1.6] text-ink/90">{area.description}</p>
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-controls="area-panel-more"
-          onClick={() => setOpen((v) => !v)}
-          className="mt-1 inline-flex min-h-[44px] items-center gap-2 text-[0.9375rem] font-medium text-forest underline decoration-gold decoration-1 underline-offset-[6px] focus-visible:!outline-forest"
-        >
-          {open ? <Minus size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
-          {open ? "Less" : "How this can look in sessions"}
-          <span className="sr-only"> for {area.name}</span>
-        </button>
-        <AnimatePresence initial={false}>
-          {open && (
-            <motion.div
-              id="area-panel-more"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
-              className="overflow-hidden"
-            >
-              <p className="mt-1 border-l border-gold pl-3.5 font-serif text-[1.1875rem] italic leading-[1.45] text-forest">{area.more}</p>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+        <div className="p-5 pb-6">
+          <div className="flex items-center gap-2.5">
+            <Icon aria-hidden="true" strokeWidth={1.25} className="h-6 w-6 shrink-0 text-gold" />
+            <h3 id="area-popup-title" className="font-serif text-[1.75rem] font-medium leading-none text-forest">
+              {area.name}
+            </h3>
+          </div>
+          <p className="mt-3 text-base leading-[1.65] text-ink/90">{area.description}</p>
+          <p className="mt-5 text-[0.8125rem] font-medium uppercase tracking-[0.14em] text-forest/80">How this can look in sessions</p>
+          <p className="mt-2 border-l border-gold pl-4 font-serif text-[1.25rem] italic leading-[1.45] text-forest">{area.more}</p>
+        </div>
+      </motion.div>
     </div>
   );
 }

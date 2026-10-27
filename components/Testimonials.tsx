@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import { BackdropSprig, Ripples } from "./BackdropArt";
 import Reveal from "./Reveal";
 import WordReveal from "./WordReveal";
 
@@ -14,8 +15,10 @@ export const verifiedTestimonials: Testimonial[] = [];
 
 export default function Testimonials({ items = verifiedTestimonials }: { items?: Testimonial[] }) {
   return (
-    <section id="experiences" aria-labelledby="experiences-heading" className="bg-sage/15 section-y">
-      <div className="container-x grid items-start gap-5 lg:grid-cols-[40fr_60fr] lg:gap-12">
+    <section id="experiences" aria-labelledby="experiences-heading" className="relative overflow-hidden bg-sage/30 section-y">
+      <Ripples className="-right-28 top-1/2 h-[22rem] w-[22rem] -translate-y-1/2 text-forest/20 lg:-right-20 lg:h-[30rem] lg:w-[30rem]" />
+      <BackdropSprig className="hidden rotate-[10deg] text-forest/20 lg:bottom-3 lg:left-5 lg:block lg:h-24 lg:w-14" />
+      <div className="container-x relative grid items-start gap-5 lg:grid-cols-[40fr_60fr] lg:gap-12">
         <Reveal>
           <h2 id="experiences-heading" className="h2 max-w-[16ch]">
             <WordReveal text="Experiences shared with care." stagger={0.14} />

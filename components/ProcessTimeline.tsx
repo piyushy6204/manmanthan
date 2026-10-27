@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { CalendarCheck, MessageCircle, Sprout, Video, type LucideIcon } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import Button from "./Button";
+import { BackdropSprig, JourneyPath } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 const steps: { n: string; icon: LucideIcon; title: string; text: string }[] = [
@@ -33,8 +34,10 @@ export default function ProcessTimeline() {
   // Desktop: steps appear one after another. Mobile: each step appears as it scrolls into view.
   const stepDelay = (i: number) => (desktop && !reduced ? i * STEP_GAP : 0);
   return (
-    <section id="process" aria-labelledby="process-heading" className="bg-sage/15 section-y">
-      <div className="container-x">
+    <section id="process" aria-labelledby="process-heading" className="relative overflow-hidden bg-sage/30 section-y">
+      <JourneyPath className="bottom-2 right-0 h-24 w-[85%] text-gold/70 sm:h-32 lg:bottom-4 lg:h-40 lg:w-[58%]" />
+      <BackdropSprig className="-right-1 top-3 hidden h-32 w-20 rotate-[16deg] text-forest/20 sm:block lg:right-6 lg:top-5 lg:h-36 lg:w-24" />
+      <div className="container-x relative">
         <Reveal>
           <h2 id="process-heading" className="h2 text-center sm:whitespace-nowrap">
             Taking the first step can be simple.

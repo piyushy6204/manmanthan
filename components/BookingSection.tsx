@@ -2,6 +2,7 @@ import Image from "next/image";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import BookingForm from "./BookingForm";
+import { ArcRing, BackdropSprig } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 export default function BookingSection() {
@@ -14,8 +15,10 @@ export default function BookingSection() {
   ].filter(Boolean) as { icon: typeof Mail; label: string; href: string; external: boolean; aria: string }[];
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="bg-sage/15 section-y">
-      <div className="container-x grid items-start gap-7 lg:grid-cols-[45fr_55fr] lg:items-stretch lg:gap-12">
+    <section id="contact" aria-labelledby="contact-heading" className="relative overflow-hidden bg-sage/30 section-y">
+      <ArcRing className="-bottom-20 -left-20 h-56 w-56 text-gold/60 lg:-bottom-28 lg:-left-28 lg:h-[24rem] lg:w-[24rem]" />
+      <BackdropSprig className="-right-2 top-2 h-28 w-16 -rotate-[12deg] text-forest/20 lg:right-3 lg:top-6 lg:h-36 lg:w-20" />
+      <div className="container-x relative grid items-start gap-7 lg:grid-cols-[45fr_55fr] lg:items-stretch lg:gap-12">
         <Reveal className="flex flex-col">
           <h2 id="contact-heading" className="h2">
             Your space to begin.

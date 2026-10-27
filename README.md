@@ -1,7 +1,7 @@
 # Mann Manthan: counselling psychology website
 
 Next.js 15 (App Router), React, TypeScript, Tailwind CSS 3, Lucide React, Framer Motion.
-Fonts (Cormorant Garamond, DM Sans) are self-hosted via Fontsource, so no Google Fonts request is made.
+Fonts (EB Garamond, Work Sans) are self-hosted via Fontsource, so no Google Fonts request is made.
 
 ## Run
 
