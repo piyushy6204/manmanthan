@@ -56,7 +56,6 @@ export const siteConfig = {
     heroImage: { src: "/images/hero-eucalyptus.jpg", alt: "A eucalyptus stem in a ceramic vase, lit by soft morning sunlight", width: 896, height: 1053 },
     /** Section imagery (AI-generated stand-ins; swap for your own photography at the same crop whenever you like). */
     bannerLight: { src: "/images/intro-diptych.jpg", width: 1376, height: 426 },
-    bannerDark: { src: "/images/areas-dark.jpg", width: 1376, height: 459 },
     contactArt: { src: "/images/contact-window.jpg", width: 1376, height: 768 },
     portraitSlot: { src: "/images/about-corner.jpg", width: 840, height: 1050 },
   },

@@ -36,7 +36,7 @@ export default function Footer() {
               <ul className="mt-3 space-y-0.5">
                 {areasOfHelp.map((a) => (
                   <li key={a.id}>
-                    <Link href={`/#area-${a.id}`} className="inline-flex min-h-[40px] items-center text-[0.98rem] text-sage hover:text-ivory">{a.name}</Link>
+                    <Link href="/#areas" className="inline-flex min-h-[40px] items-center text-[0.98rem] text-sage hover:text-ivory">{a.name}</Link>
                   </li>
                 ))}
               </ul>
