@@ -1,10 +1,12 @@
+import Image from "next/image";
 import { Mail, MessageCircle, Phone } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import BookingForm from "./BookingForm";
 import Reveal from "./Reveal";
 
 export default function BookingSection() {
-  const { contact } = siteConfig;
+  const { contact, images } = siteConfig;
+  const { contactArt } = images;
   const methods = [
     contact.whatsappHref && { icon: MessageCircle, label: "WhatsApp", href: contact.whatsappHref, external: true, aria: "Contact on WhatsApp" },
     contact.phoneHref && { icon: Phone, label: `Call +${contact.phone}`, href: contact.phoneHref, external: false, aria: "Call the counsellor" },
@@ -13,8 +15,8 @@ export default function BookingSection() {
 
   return (
     <section id="contact" aria-labelledby="contact-heading" className="bg-sage/15 section-y">
-      <div className="container-x grid items-start gap-7 lg:grid-cols-[40fr_60fr] lg:gap-12">
-        <Reveal>
+      <div className="container-x grid items-start gap-7 lg:grid-cols-[45fr_55fr] lg:items-stretch lg:gap-12">
+        <Reveal className="flex flex-col">
           <h2 id="contact-heading" className="h2">
             Your space to begin.
           </h2>
@@ -43,6 +45,11 @@ export default function BookingSection() {
           <p className="mt-6 max-w-[26rem] border-t border-gold/50 pt-4 small-copy">
             This form is for appointment enquiries only. If you are in immediate danger or need urgent help, please contact your local emergency services.
           </p>
+
+          {/* Fills the remaining height beside the form on desktop so both columns end together */}
+          <div className="relative mt-6 hidden min-h-[13rem] flex-1 overflow-hidden lg:block">
+            <Image src={contactArt.src} alt="" fill sizes="(min-width: 1024px) 40vw, 0px" className="object-cover" />
+          </div>
         </Reveal>
 
         <Reveal delay={0.08}>

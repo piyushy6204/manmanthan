@@ -55,6 +55,7 @@ export const siteConfig = {
     /** Watercolour botanical illustrations in the logo palette (placeholders until real photography is supplied). */
     bannerLight: { src: "/images/botanical-intro.jpg", width: 2400, height: 525 },
     bannerDark: { src: "/images/botanical-dark.jpg", width: 2400, height: 450 },
+    contactArt: { src: "/images/botanical-contact.jpg", width: 1200, height: 760 },
     portraitSlot: { src: "/images/botanical-portrait.jpg", width: 900, height: 1125 },
     heroEmblem: { src: "/images/logo-emblem.png", alt: "" },
   },

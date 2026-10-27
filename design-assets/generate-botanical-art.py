@@ -130,12 +130,26 @@ def portrait():
     body+=f'<g filter="url(#wc)">{g}</g>'
     return svg(W,H,body)
 
+def contact():
+    W,H=1200,760; r=random.Random(33)
+    body=f'<rect width="{W}" height="{H}" fill="#f6f2e6"/>'
+    body+='<g filter="url(#soft)" opacity="0.55"><ellipse cx="420" cy="720" rx="640" ry="120" fill="#a9bba8"/><ellipse cx="1000" cy="740" rx="420" ry="90" fill="#cfdccb"/></g>'
+    body+='<g filter="url(#soft)"><circle cx="820" cy="300" r="190" fill="#e9c97f" opacity="0.6"/></g><g filter="url(#soft)"><circle cx="820" cy="300" r="115" fill="#f3dca0" opacity="0.7"/></g>'
+    body+=arc(820,310,250,140,320,12,'#c99a45',.65)+arc(820,310,264,190,290,4,'#c99a45',.5)
+    mix=[('forest',4),('deep',1),('sage',3),('gold',2)]
+    g=branch([(-40,740),(230,700),(420,420),(640,380)],11,150,95,48,mix,r)
+    g+=branch([(1260,760),(1060,640),(980,600),(900,640)],8,130,85,46,[('forest',3),('sage',2),('gold',3),('pale',1)],r)
+    g+=scatter(12,(560,40,1180,560),r,[('gold',4),('forest',2),('pale',2)],(34,66))
+    body+=f'<g filter="url(#wc)">{g}</g>'
+    return svg(W,H,body)
+
 if __name__=='__main__':
     import sys
     P='/home/claude/mann-manthan/public/images/'
     render(intro(),2400,560,'/tmp/art/botanical-intro.jpg')
     render(dark(),2400,560,'/tmp/art/botanical-dark.jpg')
     render(portrait(),900,1125,'/tmp/art/botanical-portrait.jpg')
+    render(contact(),1200,760,'/tmp/art/botanical-contact.jpg')
     for f,(w,h) in {'botanical-intro.jpg':(2400,525),'botanical-dark.jpg':(2400,450)}.items():
         im=Image.open('/tmp/art/'+f); t=(im.height-h)//2; im.crop((0,t,w,t+h)).save('/tmp/art/'+f,quality=86,optimize=True)
     print('ok')

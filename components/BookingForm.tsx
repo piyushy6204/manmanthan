@@ -89,7 +89,7 @@ export default function BookingForm() {
   }
 
   return (
-    <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby="privacy-note" className="border border-gold/60 bg-ivory p-5 sm:p-7 lg:p-6">
+    <form ref={formRef} onSubmit={onSubmit} noValidate aria-describedby="privacy-note" className="border border-gold/60 bg-ivory p-5 sm:p-7 lg:p-5">
       {errorCount > 0 && (
         <div ref={summaryRef} tabIndex={-1} role="alert" className="mb-6 border border-danger/50 bg-danger/5 p-4 text-[0.95rem] text-danger outline-none">
           Please check {errorCount === 1 ? "one field" : `${errorCount} fields`} below. Details are shown next to each.
@@ -166,7 +166,7 @@ export default function BookingForm() {
           </label>
           <input id="date" name="date" type="date" min={today || undefined} className="field" value={values.date} onChange={(e) => set("date", e.target.value)}
             aria-invalid={!!errors.date} aria-describedby={describe("date", "date-hint")} />
-          <p id="date-hint" className="mt-1.5 text-[0.9rem] text-ink/70">A guide only. The final time is agreed with you.</p>
+          <p id="date-hint" className="mt-1.5 text-[0.9rem] text-ink/70 lg:sr-only">A guide only. The final time is agreed with you.</p>
           <FieldError id="date-error" message={errors.date} />
         </div>
 
@@ -174,7 +174,7 @@ export default function BookingForm() {
           <label htmlFor="message" className="field-label">
             Message <span className="font-normal text-ink/70">(optional)</span>
           </label>
-          <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y lg:h-24 lg:min-h-0" value={values.message} onChange={(e) => set("message", e.target.value)}
+          <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y lg:h-20 lg:min-h-0" value={values.message} onChange={(e) => set("message", e.target.value)}
             aria-invalid={!!errors.message} aria-describedby={describe("message", "message-hint")} />
           <p id="message-hint" className="mt-1.5 text-[0.9rem] leading-snug text-ink/70">
             A line or two is plenty. Please don&apos;t share detailed personal or health information here. {values.message.length}/{MESSAGE_MAX}
@@ -203,7 +203,7 @@ export default function BookingForm() {
       <p id="privacy-note" className="mt-5 small-copy">
         We use these details only to reply to your enquiry. See our{" "}
         <Link href="/privacy" className="text-forest underline underline-offset-4">Privacy Policy</Link>.
-        Submitting this form sends an enquiry. It does not book or confirm a session.
+        Submitting this form sends an enquiry. It does not book or confirm a session.<span className="hidden lg:inline"> Your preferred date is a guide only; the final time is agreed with you.</span>
       </p>
 
       <button type="submit" className="btn btn-primary mt-6 w-full sm:w-auto lg:mt-5" disabled={status === "submitting"}>
