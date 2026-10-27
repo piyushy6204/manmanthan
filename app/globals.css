@@ -35,9 +35,9 @@ body {
 ::selection { background: rgb(var(--sage)); color: rgb(var(--forest)); }
 
 @layer components {
-  /* One container for every section: 20px mobile, 32px tablet, 40px desktop (1200px+), content capped at 1440px */
-  .container-x { @apply mx-auto w-full max-w-[1520px] px-5 md:px-8 min-[1200px]:px-10; }
-  /* One spacing rhythm for every section */
+  /* One container for the whole site (header, every section, footer): content is 76rem (1216px) wide and centred.
+     Side padding: 20px mobile, 32px tablet, 40px desktop (1200px+). */
+  .container-x { @apply mx-auto w-full max-w-[calc(76rem+5rem)] px-5 md:px-8 min-[1200px]:px-10; }
   .section-y { @apply py-12 sm:py-16 lg:py-20; }
 
   /* ---------- Typography system ---------- */

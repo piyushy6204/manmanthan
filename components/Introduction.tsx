@@ -14,7 +14,7 @@ export default function Introduction() {
         </Reveal>
 
         {/* Paragraphs flow across two columns on desktop so the full width is used without long lines */}
-        <Reveal className="mx-auto mt-8 max-w-[76rem] lg:mt-10 lg:columns-2 lg:gap-14" delay={0.06}>
+        <Reveal className="mt-8 lg:mt-10 lg:columns-2 lg:gap-14" delay={0.06}>
           <p className="body-copy break-inside-avoid !max-w-none">
             Mann Manthan comes from the idea of pausing to look within, reflecting on our thoughts and emotions, and understanding ourselves a little better.
           </p>
