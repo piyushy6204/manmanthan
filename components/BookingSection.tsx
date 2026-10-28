@@ -45,10 +45,6 @@ export default function BookingSection() {
             </ul>
           )}
 
-          <p className="mt-6 max-w-[26rem] border-t border-gold/50 pt-4 small-copy">
-            This form is for appointment enquiries only. If you are in immediate danger or need urgent help, please contact your local emergency services.
-          </p>
-
           {/* Fills the remaining height beside the form on desktop so both columns end together */}
           <div className="relative mt-6 hidden min-h-[13rem] flex-1 overflow-hidden lg:block">
             <Image src={contactArt.src} alt="" fill sizes="(min-width: 1024px) 40vw, 0px" className="object-cover object-[60%_50%]" />

@@ -163,10 +163,6 @@ export default function CBTSection() {
               </AnimatePresence>
             </div>
 
-            <p className="mt-3 small-copy">
-              Exploring any one part of this pattern can help a person notice where changes might be possible. This is a simplified educational example, not a
-              clinical assessment.
-            </p>
           </div>
         </Reveal>
 
