@@ -226,9 +226,6 @@ export default function AreasOfHelp() {
         </ul>
 
         <div className="mt-8 flex flex-col items-start gap-5 border-t border-gold/50 pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
-          <p className="max-w-[40rem] text-[0.875rem] leading-[1.6] text-sage">
-            Whether counselling is suitable, and what support you may need, is discussed individually. This website cannot diagnose any condition.
-          </p>
           <Button href={siteConfig.bookingHref} variant="light" className="shrink-0">
             Book a Session
           </Button>
