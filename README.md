@@ -1,7 +1,7 @@
 # Mann Manthan: counselling psychology website
 
 Next.js 15 (App Router), React, TypeScript, Tailwind CSS 3, Lucide React, Framer Motion.
-Fonts (EB Garamond, Work Sans) are self-hosted via Fontsource, so no Google Fonts request is made.
+Fonts (Playfair Display, Lato, per the client mood board) are self-hosted via Fontsource, so no Google Fonts request is made.
 
 ## Run
 
@@ -34,7 +34,7 @@ While phone/WhatsApp are blank, the floating controls and drawer buttons scroll 
 
 ## Refinement notes (Classic Serenity)
 
-- **Palette tokens** live in `app/globals.css` (`--forest`, `--sage`, `--ivory`, `--gold`, `--ink`; `--danger` is used only for form errors). Tailwind maps them in `tailwind.config.ts`. Do not add raw hex values to components.
+- **Palette tokens** live in `app/globals.css` and follow the client mood board: forest `#073D32`, gold `#C79543`, ivory `#F8F5EF`, mist `#DCE6DC`, sand `#EFE3CD`, ink `#303A35` (plus sage `#A9BBA8` for decorative strokes). Tailwind maps them in `tailwind.config.ts`. Do not add raw hex values to components.
 - **Type system** is defined once in `globals.css`: `.display` (hero), `.h2`, `.h3`, `.lede`, `.eyebrow`, `.body-copy`, `.small-copy`.
 - **Logo**: `public/images/logo-lockup.png` is the original emblem and wordmark arranged side by side (header and drawer). The footer uses the full original logo.
-- **Imagery**: `hero-eucalyptus.jpg`, `intro-diptych.jpg`, `about-corner.jpg` and `contact-window.jpg` are AI-generated stand-in photographs (paths in `lib/site-config.ts`). Replace any of them with your own photography at a similar crop. Harsha's portrait goes in `counsellor.photo`.
+- **Imagery**: the six topic illustrations (`area-*.jpg`), the hero watercolour, the process watercolour, the books photo and the armchair placeholder are client-supplied artwork. `intro-leaves.jpg` and `intro-diptych.jpg` are AI-generated stand-ins. All paths are in `lib/site-config.ts` and `lib/areas.ts`. Harsha's portrait goes in `counsellor.photo`.

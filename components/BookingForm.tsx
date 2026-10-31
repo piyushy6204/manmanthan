@@ -78,6 +78,9 @@ export default function BookingForm() {
     return (
       <div ref={summaryRef} tabIndex={-1} role="status" className="border border-gold/60 bg-ivory p-6 outline-none sm:p-8">
         <h3 className="h3">Your enquiry has been sent.</h3>
+        <p className="body-copy mt-3">
+          Thank you for reaching out. This is an enquiry, not a confirmed booking. A session is only confirmed once a time has been agreed with you.
+        </p>
         <button type="button" className="btn btn-secondary mt-6" onClick={() => { setValues(emptyEnquiry); setErrors({}); setStatus("idle"); }}>
           Send another enquiry
         </button>
@@ -174,7 +177,7 @@ export default function BookingForm() {
           <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y lg:h-20 lg:min-h-0" value={values.message} onChange={(e) => set("message", e.target.value)}
             aria-invalid={!!errors.message} aria-describedby={describe("message", "message-hint")} />
           <p id="message-hint" className="mt-1.5 text-[0.9rem] leading-snug text-ink/70">
-          {values.message.length}/{MESSAGE_MAX}
+            A line or two is plenty. Please don&apos;t share detailed personal or health information here. {values.message.length}/{MESSAGE_MAX}
           </p>
           <FieldError id="message-error" message={errors.message} />
         </div>

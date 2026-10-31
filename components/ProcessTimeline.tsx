@@ -4,7 +4,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { CalendarCheck, MessageCircle, Sprout, Video, type LucideIcon } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import Button from "./Button";
-import { BackdropSprig, JourneyPath } from "./BackdropArt";
+import Image from "next/image";
 import Reveal from "./Reveal";
 
 const steps: { n: string; icon: LucideIcon; title: string; text: string }[] = [
@@ -29,14 +29,13 @@ function useIsDesktop() {
 }
 
 export default function ProcessTimeline() {
+  const { processArt } = siteConfig.images;
   const desktop = useIsDesktop();
   const reduced = useReducedMotion();
   // Desktop: steps appear one after another. Mobile: each step appears as it scrolls into view.
   const stepDelay = (i: number) => (desktop && !reduced ? i * STEP_GAP : 0);
   return (
-    <section id="process" aria-labelledby="process-heading" className="relative overflow-hidden bg-sage/30 section-y">
-      <JourneyPath className="bottom-2 right-0 h-24 w-[85%] text-gold/70 sm:h-32 lg:bottom-4 lg:h-40 lg:w-[58%]" />
-      <BackdropSprig className="-right-1 top-3 hidden h-32 w-20 rotate-[16deg] text-forest/20 sm:block lg:right-6 lg:top-5 lg:h-36 lg:w-24" />
+    <section id="process" aria-labelledby="process-heading" className="relative overflow-hidden bg-sand section-y">
       <div className="container-x relative">
         <Reveal>
           <h2 id="process-heading" className="h2 text-center sm:whitespace-nowrap">
@@ -75,11 +74,17 @@ export default function ProcessTimeline() {
           ))}
         </ol>
 
-        <Reveal className="mt-9 flex flex-col items-start gap-4 lg:mt-12">
-          <Button href={siteConfig.bookingHref}>Let&apos;s Get Started</Button>
-          <p className="max-w-[34rem] small-copy">
-            Sending an enquiry is the first step. A session is only confirmed once a time has been agreed with you.
-          </p>
+        <Reveal className="mt-9 grid items-center gap-6 lg:mt-12 lg:grid-cols-[1fr_28rem] lg:gap-12">
+          <div className="flex flex-col items-start gap-4">
+            <Button href={siteConfig.bookingHref}>Let&apos;s Get Started</Button>
+            <p className="max-w-[34rem] small-copy">
+              Sending an enquiry is the first step. A session is only confirmed once a time has been agreed with you.
+            </p>
+          </div>
+          {/* Client-supplied watercolour of a winding path towards the sun: the journey of counselling */}
+          <div className="relative aspect-[16/8] overflow-hidden rounded-[3px] border border-gold/50 lg:aspect-[2/1]">
+            <Image src={processArt.src} alt="" fill sizes="(min-width: 1024px) 28rem, 100vw" className="object-cover object-[50%_60%]" />
+          </div>
         </Reveal>
       </div>
     </section>

@@ -2,7 +2,7 @@ export const areasOfHelp = [
   {
     id: "anxiety",
     photo: "/images/area-anxiety.jpg",
-    photoWide: "/images/area-anxiety-wide.jpg",
+    photoWide: "/images/area-anxiety.jpg",
     name: "Anxiety",
     icon: "Wind",
     description: "Explore anxious thoughts, worries and patterns that may be affecting everyday life.",
@@ -11,7 +11,7 @@ export const areasOfHelp = [
   {
     id: "depression",
     photo: "/images/area-depression.jpg",
-    photoWide: "/images/area-depression-wide.jpg",
+    photoWide: "/images/area-depression.jpg",
     name: "Depression",
     icon: "CloudDrizzle",
     description: "Find space to talk about low mood, emotional difficulties and experiences that may feel hard to put into words.",
@@ -20,7 +20,7 @@ export const areasOfHelp = [
   {
     id: "stress",
     photo: "/images/area-stress.jpg",
-    photoWide: "/images/area-stress-wide.jpg",
+    photoWide: "/images/area-stress.jpg",
     name: "Stress Management",
     icon: "Waves",
     description: "Understand stress triggers and develop practical ways to respond to everyday pressures.",
@@ -29,7 +29,7 @@ export const areasOfHelp = [
   {
     id: "burnout",
     photo: "/images/area-burnout.jpg",
-    photoWide: "/images/area-burnout-wide.jpg",
+    photoWide: "/images/area-burnout.jpg",
     name: "Burnout",
     icon: "BatteryLow",
     description: "Explore emotional exhaustion, overwhelming responsibilities and the need for healthier boundaries.",
@@ -38,7 +38,7 @@ export const areasOfHelp = [
   {
     id: "anger",
     photo: "/images/area-anger.jpg",
-    photoWide: "/images/area-anger-wide.jpg",
+    photoWide: "/images/area-anger.jpg",
     name: "Anger Issues",
     icon: "Flame",
     description: "Understand emotional triggers, recognise patterns and practise healthier ways of expressing feelings.",
@@ -47,7 +47,7 @@ export const areasOfHelp = [
   {
     id: "growth",
     photo: "/images/area-growth.jpg",
-    photoWide: "/images/area-growth-wide.jpg",
+    photoWide: "/images/area-growth.jpg",
     name: "Personal Growth",
     icon: "Sprout",
     description: "Build self awareness, explore personal values and develop a deeper understanding of yourself.",

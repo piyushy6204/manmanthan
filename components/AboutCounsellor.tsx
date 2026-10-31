@@ -1,27 +1,30 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 import Button from "./Button";
+import { ArcRing, BackdropSprig } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 export default function AboutCounsellor() {
   const { counsellor } = siteConfig;
   const { portraitSlot } = siteConfig.images;
   return (
-    <section id="about" aria-labelledby="about-heading" className="section-y">
+    <section id="about" aria-labelledby="about-heading" className="relative overflow-hidden section-y">
       <div className="container-x grid items-start gap-8 lg:grid-cols-[40fr_60fr] lg:items-center lg:gap-12">
-        <Reveal className="relative w-full max-w-[15rem] sm:max-w-[19rem] lg:max-w-[26rem]">
-          <div aria-hidden="true" className="absolute inset-0 hidden -translate-x-3 translate-y-3 border border-gold/70 sm:block" />
-          <div className="relative aspect-[4/5] overflow-hidden bg-sage/20">
+        {/* Arch cutout portrait with the logo's gold ring and a leaf sprig, as in the mood board */}
+        <Reveal className="relative mx-auto w-full max-w-[16rem] sm:max-w-[20rem] lg:mx-0 lg:max-w-[25rem]">
+          <ArcRing className="-left-[12%] -top-[9%] h-[124%] w-[124%] text-gold/80" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-mist">
             {counsellor.photo ? (
-              <Image src={counsellor.photo} alt={counsellor.photoAlt} fill sizes="(min-width: 1024px) 22rem, 60vw" className="object-cover" />
+              <Image src={counsellor.photo} alt={counsellor.photoAlt} fill sizes="(min-width: 1024px) 25rem, 70vw" className="object-cover" />
             ) : (
               // Image slot: shown until Harsha's actual photograph is supplied. No portrait is fabricated.
               <>
-                <Image src={portraitSlot.src} alt="" width={portraitSlot.width} height={portraitSlot.height} sizes="(min-width: 1024px) 22rem, 60vw" className="h-full w-full object-cover object-bottom" />
-                <p className="absolute inset-x-0 bottom-0 bg-ivory/85 px-4 py-2.5 text-center font-serif text-[1.0625rem] italic text-forest">Portrait to be added</p>
+                <Image src={portraitSlot.src} alt="" width={portraitSlot.width} height={portraitSlot.height} sizes="(min-width: 1024px) 25rem, 70vw" className="h-full w-full object-cover" />
+                <p className="absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap bg-ivory/90 px-3 py-1 text-[0.8125rem] italic text-forest">Portrait to be added</p>
               </>
             )}
           </div>
+          <BackdropSprig className="-right-5 bottom-8 h-32 w-20 rotate-[8deg] text-forest/70 sm:-right-8 sm:h-40 sm:w-24" />
         </Reveal>
 
         <Reveal delay={0.08}>

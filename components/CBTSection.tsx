@@ -18,7 +18,7 @@ const elements = {
   feelings: {
     label: "Feelings",
     icon: Heart,
-    angle: 150,
+    angle: 30,
     meaning: "Feelings are the emotions, and often the physical sensations, that tend to come with our thoughts.",
     exampleLabel: "A feeling might be",
     example: "Anxiety, worry or self doubt.",
@@ -27,7 +27,7 @@ const elements = {
   behaviours: {
     label: "Behaviours",
     icon: Footprints,
-    angle: 30,
+    angle: 150,
     meaning: "Behaviours are what we do, or avoid doing, in response to a situation and how we feel about it.",
     exampleLabel: "A behaviour might be",
     example: "Avoiding a task or repeatedly seeking reassurance.",
@@ -37,7 +37,7 @@ const elements = {
 
 /*
  * Diagram geometry (viewBox 400 x 360). The three elements sit on one circle and are joined by arcs of that
- * same circle, trimmed so every arrow ends exactly short of the next node. Cycle: thoughts → behaviours → feelings → thoughts.
+ * same circle, trimmed so every arrow ends exactly short of the next node. Cycle (clockwise from the top): thoughts → feelings → behaviours → thoughts.
  */
 const CX = 200;
 const CY = 205;
@@ -53,9 +53,9 @@ const arc = (from: number, to: number) => {
   return `M ${a.x.toFixed(1)} ${a.y.toFixed(1)} A ${R} ${R} 0 0 1 ${b.x.toFixed(1)} ${b.y.toFixed(1)}`;
 };
 const edges = [
-  { id: "t-b", from: "thoughts", to: "behaviours", d: arc(-90, 30) },
-  { id: "b-f", from: "behaviours", to: "feelings", d: arc(30, 150) },
-  { id: "f-t", from: "feelings", to: "thoughts", d: arc(150, 270) },
+  { id: "t-f", from: "thoughts", to: "feelings", d: arc(-90, 30) },
+  { id: "f-b", from: "feelings", to: "behaviours", d: arc(30, 150) },
+  { id: "b-t", from: "behaviours", to: "thoughts", d: arc(150, 270) },
 ] as const;
 
 type Key = keyof typeof elements;
@@ -77,7 +77,7 @@ export default function CBTSection() {
         </Reveal>
 
         <Reveal delay={0.08} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <div className="border border-gold/50 bg-sage/10 p-4 sm:p-7">
+          <div className="border border-gold/50 bg-mist/50 p-4 sm:p-7">
             <p className="text-center text-[0.875rem] text-ink/70">Select Thoughts, Feelings or Behaviours to explore the cycle.</p>
 
             <div className="relative mx-auto mt-3 aspect-[400/360] w-full max-w-[26rem]">
@@ -129,7 +129,7 @@ export default function CBTSection() {
                     className={`group absolute flex aspect-square w-[18%] min-w-[46px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition-colors duration-300 ease-calm ${
                       selected
                         ? "border-gold bg-forest text-white shadow-[0_0_0_3px_rgb(var(--ivory)),0_0_0_4.5px_rgb(var(--gold))]"
-                        : "border-forest/50 bg-ivory text-forest hover:border-forest hover:bg-sage/30"
+                        : "border-forest/50 bg-ivory text-forest hover:border-forest hover:bg-mist"
                     }`}
                   >
                     <Icon aria-hidden="true" strokeWidth={1.25} className="h-[42%] w-[42%]" />
@@ -144,7 +144,6 @@ export default function CBTSection() {
                 );
               })}
             </div>
-
             <div id="cbt-panel" aria-live="polite" className="mt-4 min-h-[15.5rem] border-t border-gold/50 pt-4 sm:min-h-[13rem]">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
@@ -162,7 +161,6 @@ export default function CBTSection() {
                 </motion.div>
               </AnimatePresence>
             </div>
-
           </div>
         </Reveal>
 

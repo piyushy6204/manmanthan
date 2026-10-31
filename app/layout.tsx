@@ -1,7 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/eb-garamond/index.css";
-import "@fontsource-variable/eb-garamond/wght-italic.css";
-import "@fontsource-variable/work-sans/index.css";
+import "@fontsource-variable/playfair-display/index.css";
+import "@fontsource-variable/playfair-display/wght-italic.css";
+import "@fontsource/lato/400.css";
+import "@fontsource/lato/400-italic.css";
+import "@fontsource/lato/700.css";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import MotionProvider from "@/components/MotionProvider";

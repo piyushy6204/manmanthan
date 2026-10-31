@@ -2,13 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ---------- Design tokens: Classic Serenity ---------- */
+/* ---------- Design tokens: client mood board ---------- */
 :root {
-  --forest: 7 63 50;     /* #073F32 primary buttons, headings, nav accents */
-  --sage: 169 187 168;   /* #A9BBA8 secondary surfaces, subtle highlights */
-  --ivory: 250 247 240;  /* #FAF7F0 main background */
-  --gold: 201 154 69;    /* #C99A45 fine borders, small accents */
-  --ink: 41 45 41;       /* #292D29 body text */
+  /* Client mood board palette */
+  --forest: 7 61 50;     /* #073D32 primary: headings, buttons, dark bands */
+  --gold: 199 149 67;    /* #C79543 accent: fine lines, highlights, icons */
+  --ivory: 248 245 239;  /* #F8F5EF page background */
+  --mist: 220 230 220;   /* #DCE6DC secondary: section bands, cards */
+  --sand: 239 227 205;   /* #EFE3CD alternate: warm highlight bands */
+  --ink: 48 58 53;       /* #303A35 body text */
+  --sage: 169 187 168;   /* #A9BBA8 decorative strokes and soft text on dark (from the earlier palette) */
   --danger: 143 40 40;   /* form errors only */
 
   --header-h: 3.5rem;

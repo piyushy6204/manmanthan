@@ -23,16 +23,16 @@ function AreaRow({ area }: { area: (typeof areasOfHelp)[number] }) {
       </div>
       <div className="mt-4 flex items-center gap-2.5">
         <Icon aria-hidden="true" strokeWidth={1.1} className="h-6 w-6 shrink-0 text-gold" />
-        <h3 className="font-serif text-[clamp(1.4rem,1.2rem+0.8vw,1.75rem)] font-medium leading-tight text-ivory">{area.name}</h3>
+        <h3 className="font-serif text-[clamp(1.4rem,1.2rem+0.8vw,1.75rem)] font-medium leading-tight text-forest">{area.name}</h3>
       </div>
-      <p className="mt-1.5 max-w-[26rem] text-base leading-[1.65] text-sage md:min-h-[4.95rem]">{area.description}</p>
+      <p className="mt-1.5 max-w-[26rem] text-base leading-[1.65] text-ink/85 md:min-h-[4.95rem]">{area.description}</p>
 
       <button
         type="button"
         aria-expanded={open}
         aria-controls={panelId}
         onClick={() => setOpen((v) => !v)}
-        className="mt-2 inline-flex min-h-[44px] items-center gap-2 text-[0.9375rem] font-medium text-ivory underline decoration-gold/70 decoration-1 underline-offset-[6px] hover:decoration-ivory"
+        className="mt-2 inline-flex min-h-[44px] items-center gap-2 text-[0.9375rem] font-medium text-forest underline decoration-gold decoration-1 underline-offset-[6px] hover:decoration-forest"
       >
         {open ? <Minus size={16} aria-hidden="true" /> : <Plus size={16} aria-hidden="true" />}
         {open ? "Less" : "How this can look in sessions"}
@@ -51,7 +51,7 @@ function AreaRow({ area }: { area: (typeof areasOfHelp)[number] }) {
             transition={{ duration: 0.3, ease: [0.22, 0.61, 0.36, 1] }}
             className="overflow-hidden"
           >
-            <p className="mt-1 max-w-[26rem] border-l border-gold/70 pl-4 font-serif text-[1.1875rem] italic leading-[1.45] text-ivory">{area.more}</p>
+            <p className="mt-1 max-w-[26rem] border-l border-gold pl-4 font-serif text-[1.1875rem] italic leading-[1.45] text-forest">{area.more}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -125,7 +125,7 @@ function AreaTiles() {
               className="relative block aspect-[1/1.05] w-full overflow-hidden rounded-[3px] text-left transition-transform duration-200 active:scale-[0.98]"
             >
               <Image src={a.photo} alt="" fill sizes="(max-width: 767px) 46vw, 0px" className="object-cover" />
-              <span className="absolute inset-x-0 top-0 bg-forest/85 px-2.5 py-2.5 font-serif text-[1.1875rem] font-bold leading-[1.15] text-ivory [text-shadow:0_1px_3px_rgba(0,0,0,0.45)]">{a.name}</span>
+              <span className="absolute inset-x-0 top-0 bg-forest/85 px-2 py-2 font-serif text-[0.9375rem] font-medium leading-[1.15] text-ivory min-[380px]:px-2.5 min-[380px]:text-base [text-shadow:0_1px_3px_rgba(0,0,0,0.45)]">{a.name}</span>
             </button>
           </li>
         ))}
@@ -206,13 +206,13 @@ function AreaPopup({
 
 export default function AreasOfHelp() {
   return (
-    <section id="areas" aria-labelledby="areas-heading" className="on-dark bg-forest section-y">
+    <section id="areas" aria-labelledby="areas-heading" className="bg-mist section-y">
       <div className="container-x">
         <Reveal className="grid items-end gap-4 lg:grid-cols-2 lg:gap-12">
-          <h2 id="areas-heading" className="h2 max-w-[20ch] !text-ivory">
+          <h2 id="areas-heading" className="h2 max-w-[20ch]">
             What would you like to understand better?
           </h2>
-          <p className="max-w-[34rem] text-base leading-[1.65] text-sage sm:text-[1.0625rem]">
+          <p className="max-w-[34rem] text-base leading-[1.65] text-ink/85 sm:text-[1.0625rem]">
             Everyone&apos;s experiences are different. Counselling offers a space to explore what you are going through and work towards healthier ways of coping.
           </p>
         </Reveal>
@@ -226,7 +226,10 @@ export default function AreasOfHelp() {
         </ul>
 
         <div className="mt-8 flex flex-col items-start gap-5 border-t border-gold/50 pt-7 sm:flex-row sm:items-center sm:justify-between sm:gap-10">
-          <Button href={siteConfig.bookingHref} variant="light" className="shrink-0">
+          <p className="max-w-[40rem] text-[0.875rem] leading-[1.6] text-ink/70">
+            Whether counselling is suitable, and what support you may need, is discussed individually. This website cannot diagnose any condition.
+          </p>
+          <Button href={siteConfig.bookingHref} className="shrink-0">
             Book a Session
           </Button>
         </div>

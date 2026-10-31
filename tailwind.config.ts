@@ -10,14 +10,17 @@ const config: Config = {
       colors: {
         forest: token("forest"),
         sage: token("sage"),
+        mist: token("mist"),
+        sand: token("sand"),
         ivory: token("ivory"),
         gold: token("gold"),
         ink: token("ink"),
         danger: token("danger"), // functional error state only
       },
+      fontWeight: { medium: "600" },
       fontFamily: {
-        serif: ['"EB Garamond Variable"', "EB Garamond", "Georgia", "serif"],
-        sans: ['"Work Sans Variable"', "Work Sans", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
+        serif: ['"Playfair Display Variable"', "Playfair Display", "Georgia", "serif"],
+        sans: ["Lato", "system-ui", "-apple-system", "Segoe UI", "sans-serif"],
       },
       transitionTimingFunction: { calm: "cubic-bezier(0.22, 0.61, 0.36, 1)" },
     },

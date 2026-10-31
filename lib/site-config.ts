@@ -52,12 +52,15 @@ export const siteConfig = {
     logoWordmark: { src: "/images/logo-wordmark.png", alt: "Mann Manthan" },
     /** Emblem and wordmark from the original logo, arranged side by side for the header and drawer. */
     logoLockup: { src: "/images/logo-lockup.png", alt: "Mann Manthan", width: 1209, height: 300 },
-    /** Hero photograph (shown in the arch). To go back to the logo emblem, point `src` at /images/logo-emblem.png. */
-    heroImage: { src: "/images/hero-eucalyptus.jpg", alt: "A eucalyptus stem in a ceramic vase, lit by soft morning sunlight", width: 896, height: 1053 },
-    /** Section imagery (AI-generated stand-ins; swap for your own photography at the same crop whenever you like). */
+    /** Hero artwork (shown in the arch): client-supplied watercolour of a profile, leaves and a golden sun. */
+    heroImage: { src: "/images/hero-watercolour.jpg", alt: "Watercolour illustration of a woman in profile with closed eyes, surrounded by leaves and a golden sun", width: 502, height: 590 },
+    /** Section imagery. Client-supplied illustrations and artwork; AI-generated stand-ins where noted. */
+    introBg: { src: "/images/intro-leaves.jpg", width: 1250, height: 768 },
     bannerLight: { src: "/images/intro-diptych.jpg", width: 1376, height: 426 },
-    contactArt: { src: "/images/contact-window.jpg", width: 1376, height: 768 },
-    portraitSlot: { src: "/images/about-corner.jpg", width: 840, height: 1050 },
+    processArt: { src: "/images/process-journey.jpg", width: 728, height: 588 },
+    contactArt: { src: "/images/contact-books.jpg", width: 724, height: 584 },
+    /** About portrait placeholder (armchair room) until Harsha's own photograph is supplied via counsellor.photo. */
+    portraitSlot: { src: "/images/about-armchair.jpg", width: 480, height: 600 },
   },
 } as const;
 

@@ -15,7 +15,7 @@ export default function BookingSection() {
   ].filter(Boolean) as { icon: typeof Mail; label: string; href: string; external: boolean; aria: string }[];
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="relative overflow-hidden bg-sage/30 section-y">
+    <section id="contact" aria-labelledby="contact-heading" className="relative overflow-hidden bg-sand section-y">
       <ArcRing className="-bottom-20 -left-20 h-56 w-56 text-gold/60 lg:-bottom-28 lg:-left-28 lg:h-[24rem] lg:w-[24rem]" />
       <BackdropSprig className="-right-2 top-2 h-28 w-16 -rotate-[12deg] text-forest/20 lg:right-3 lg:top-6 lg:h-36 lg:w-20" />
       <div className="container-x relative grid items-start gap-7 lg:grid-cols-[45fr_55fr] lg:items-stretch lg:gap-12">
@@ -44,6 +44,10 @@ export default function BookingSection() {
               ))}
             </ul>
           )}
+
+          <p className="mt-6 max-w-[26rem] border-t border-gold/50 pt-4 small-copy">
+            This form is for appointment enquiries only. If you are in immediate danger or need urgent help, please contact your local emergency services.
+          </p>
 
           {/* Fills the remaining height beside the form on desktop so both columns end together */}
           <div className="relative mt-6 hidden min-h-[13rem] flex-1 overflow-hidden lg:block">

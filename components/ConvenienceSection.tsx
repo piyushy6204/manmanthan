@@ -14,15 +14,15 @@ const items = [
 
 export default function ConvenienceSection() {
   return (
-    <section id="comfort" aria-labelledby="comfort-heading" className="section-y">
+    <section id="comfort" aria-labelledby="comfort-heading" className="on-dark bg-forest section-y">
       <div className="container-x">
         <Reveal>
-          <h2 id="comfort-heading" className="h2 max-w-[18ch]">
+          <h2 id="comfort-heading" className="h2 max-w-[18ch] !text-ivory">
             A space that works for you.
           </h2>
         </Reveal>
         <Reveal delay={0.08}>
-          <ul className="mt-8 grid grid-cols-2 border-t border-gold/50 lg:mt-12 lg:grid-cols-4">
+          <ul className="mt-8 grid grid-cols-2 border-t border-gold/60 lg:mt-12 lg:grid-cols-4">
             {items.map(({ icon: Icon, title, text }, i) => (
               <li
                 key={title}
@@ -30,9 +30,9 @@ export default function ConvenienceSection() {
                   i % 2 === 1 ? "border-l border-gold/30 pl-4 sm:pl-7" : "pr-4 sm:pr-7"
                 } lg:border-l lg:border-gold/30 lg:pl-7 lg:pr-7 lg:first:border-l-0 lg:first:pl-0`}
               >
-                <Icon aria-hidden="true" strokeWidth={1.1} className="h-6 w-6 text-forest sm:h-7 sm:w-7" />
-                <h3 className="h3 mt-2.5 text-[1.125rem] leading-snug sm:mt-3 sm:text-[1.375rem]">{title}</h3>
-                <p className="mt-1.5 justify-copy !text-left text-[0.875rem] leading-[1.6] text-ink/90 sm:!text-justify sm:text-[0.9375rem] sm:leading-[1.65]">{text}</p>
+                <Icon aria-hidden="true" strokeWidth={1.1} className="h-6 w-6 text-gold sm:h-7 sm:w-7" />
+                <h3 className="h3 mt-2.5 text-[1.125rem] leading-snug !text-ivory sm:mt-3 sm:text-[1.375rem]">{title}</h3>
+                <p className="mt-1.5 justify-copy !text-left text-[0.875rem] leading-[1.6] sm:!text-justify sm:text-[0.9375rem] sm:leading-[1.65] !text-ivory/80">{text}</p>
               </li>
             ))}
           </ul>

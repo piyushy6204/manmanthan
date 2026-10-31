@@ -4,31 +4,34 @@ import { ArcRing, BackdropSprig } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 export default function Introduction() {
-  const { bannerLight } = siteConfig.images;
+  const { bannerLight, introBg } = siteConfig.images;
   return (
-    <section id="introduction" aria-labelledby="intro-heading" className="relative overflow-hidden bg-sage/30 section-y">
-      <ArcRing className="-right-16 -top-16 h-56 w-56 text-gold/60 lg:-right-24 lg:-top-24 lg:h-[26rem] lg:w-[26rem]" />
-      <BackdropSprig className="left-1 top-5 h-36 w-24 -rotate-[14deg] text-forest/20 lg:left-8 lg:top-8 lg:h-56 lg:w-36" />
+    <section id="introduction" aria-labelledby="intro-heading" className="on-dark relative overflow-hidden bg-forest section-y">
+      {/* Leafy photographic backdrop with a deep-green veil, as in the mood board's "permission to pause" card */}
+      <Image src={introBg.src} alt="" fill sizes="100vw" className="object-cover" />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-forest/95 via-forest/88 to-forest/70" />
+      <ArcRing className="-right-16 -top-16 h-56 w-56 text-gold/70 lg:-right-24 lg:-top-24 lg:h-[26rem] lg:w-[26rem]" />
+      <BackdropSprig className="left-1 top-5 h-36 w-24 -rotate-[14deg] text-gold/40 lg:left-8 lg:top-8 lg:h-56 lg:w-36" />
       <div className="container-x relative">
         <Reveal>
-          <h2 id="intro-heading" className="h2 text-center">
+          <h2 id="intro-heading" className="h2 text-center !text-ivory">
             A little space to understand yourself.
           </h2>
         </Reveal>
 
         {/* Paragraphs flow across two columns on desktop so the full width is used without long lines */}
         <Reveal className="mt-8 lg:mt-10 lg:columns-2 lg:gap-14" delay={0.06}>
-          <p className="body-copy break-inside-avoid !max-w-none">
+          <p className="body-copy break-inside-avoid !max-w-none !text-ivory/90">
             Mann Manthan comes from the idea of pausing to look within, reflecting on our thoughts and emotions, and understanding ourselves a little better.
           </p>
-          <p className="body-copy mt-4 break-inside-avoid !max-w-none">
+          <p className="body-copy mt-4 break-inside-avoid !max-w-none !text-ivory/90">
             In the busyness of everyday life, we often move from one responsibility to another without pausing to understand what is happening within us. Our
             thoughts, emotions, relationships and experiences can sometimes feel overwhelming or difficult to make sense of.
           </p>
-          <p className="body-copy mt-4 break-inside-avoid !max-w-none">
+          <p className="body-copy mt-4 break-inside-avoid !max-w-none !text-ivory/90">
             Mann Manthan is built around the belief that sometimes, what we need is simply a safe space to pause, talk, reflect and be heard.
           </p>
-          <p className="body-copy mt-4 break-inside-avoid !max-w-none">
+          <p className="body-copy mt-4 break-inside-avoid !max-w-none !text-ivory/90">
             Through a compassionate and evidence based approach to counselling, Mann Manthan aims to help you understand your thoughts and emotions, develop
             healthier ways of coping, and move towards meaningful change at your own pace.
           </p>

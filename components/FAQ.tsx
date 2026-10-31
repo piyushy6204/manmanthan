@@ -2,6 +2,7 @@
 import { useId, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
+import { ArcRing } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 const faqs = [
@@ -40,8 +41,9 @@ export default function FAQ() {
   const base = useId();
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="section-y">
-      <div className="container-x grid items-start gap-5 lg:grid-cols-[35fr_65fr] lg:gap-12">
+    <section id="faq" aria-labelledby="faq-heading" className="relative overflow-hidden section-y">
+      <ArcRing className="-bottom-20 -left-20 h-56 w-56 text-gold/50 lg:-bottom-28 lg:-left-24 lg:h-[24rem] lg:w-[24rem]" />
+      <div className="container-x relative grid items-start gap-5 lg:grid-cols-[35fr_65fr] lg:gap-12">
         <Reveal>
           <h2 id="faq-heading" className="h2 max-w-[14ch] lg:sticky lg:top-24">
             Questions you may have.
