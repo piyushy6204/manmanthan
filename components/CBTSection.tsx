@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Brain, Footprints, Heart, type LucideIcon } from "lucide-react";
+import { Brain, Footprints, Heart, MousePointerClick, type LucideIcon } from "lucide-react";
 import Reveal from "./Reveal";
 import Sprig from "./Sprig";
 
@@ -63,6 +63,7 @@ const keys = Object.keys(elements) as Key[];
 
 export default function CBTSection() {
   const [active, setActive] = useState<Key>("thoughts");
+  const [touched, setTouched] = useState(false); // the soft rings that invite a tap stop after the first interaction
   const current = elements[active];
 
   return (
@@ -78,7 +79,10 @@ export default function CBTSection() {
 
         <Reveal delay={0.08} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
           <div className="border border-gold/50 bg-mist/50 p-4 sm:p-7">
-            <p className="text-center text-[0.875rem] text-ink/70">Select Thoughts, Feelings or Behaviours to explore the cycle.</p>
+            <p className="mx-auto flex w-fit items-center gap-2 rounded-full border border-gold bg-ivory px-4 py-1.5 text-[0.875rem] font-medium text-forest">
+              <MousePointerClick aria-hidden="true" strokeWidth={1.5} className="h-[1.125rem] w-[1.125rem] text-gilt" />
+              Tap a circle to explore
+            </p>
 
             <div className="relative mx-auto mt-3 aspect-[400/360] w-full max-w-[26rem]">
               <svg viewBox="0 0 400 360" className="absolute inset-0 h-full w-full" fill="none" aria-hidden="true" focusable="false">
@@ -124,14 +128,23 @@ export default function CBTSection() {
                     type="button"
                     aria-pressed={selected}
                     aria-controls="cbt-panel"
-                    onClick={() => setActive(k)}
+                    onClick={() => {
+                      setActive(k);
+                      setTouched(true);
+                    }}
                     style={{ left: `${(p.x / 400) * 100}%`, top: `${(p.y / 360) * 100}%` }}
-                    className={`group absolute flex aspect-square w-[18%] min-w-[46px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition-colors duration-300 ease-calm ${
+                    className={`group absolute flex aspect-square w-[18%] min-w-[46px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition duration-300 ease-calm hover:scale-105 ${
                       selected
                         ? "border-gold bg-forest text-white shadow-[0_0_0_3px_rgb(var(--ivory)),0_0_0_4.5px_rgb(var(--gold))]"
                         : "border-forest/50 bg-ivory text-forest hover:border-forest hover:bg-mist"
                     }`}
                   >
+                    {!touched && (
+                      <span aria-hidden="true" className="nudge-ring pointer-events-none absolute -inset-[3px] rounded-full border-2 border-gold" style={{ animationDelay: `${keys.indexOf(k) * 0.8}s` }} />
+                    )}
+                    <span aria-hidden="true" className="absolute -right-1.5 -top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-gold text-[0.75rem] font-bold leading-none text-forest">
+                      {keys.indexOf(k) + 1}
+                    </span>
                     <Icon aria-hidden="true" strokeWidth={1.25} className="h-[42%] w-[42%]" />
                     <span
                       className={`absolute left-1/2 -translate-x-1/2 whitespace-nowrap font-serif text-[1rem] font-medium leading-none sm:text-[1.15rem] ${

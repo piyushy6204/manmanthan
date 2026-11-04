@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 import Button from "./Button";
-import { ArcRing, BackdropSprig } from "./BackdropArt";
+import { ArcRing } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 export default function AboutCounsellor() {
@@ -10,12 +10,22 @@ export default function AboutCounsellor() {
   return (
     <section id="about" aria-labelledby="about-heading" className="relative overflow-hidden section-y">
       <div className="container-x grid items-start gap-8 lg:grid-cols-[40fr_60fr] lg:items-center lg:gap-12">
-        {/* Arch cutout portrait with the logo's gold ring and a leaf sprig, as in the mood board */}
+        {/* Arch cutout portrait with the logo's gold ring and falling leaves, as in the mood board.
+            A photo on a white background is blended into the warm arch so no white box shows. */}
         <Reveal className="relative mx-auto w-full max-w-[16rem] sm:max-w-[20rem] lg:mx-0 lg:max-w-[25rem]">
           <ArcRing className="-left-[12%] -top-[9%] h-[124%] w-[124%] text-gold/80" />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-mist">
+          <div className="relative aspect-[4/5] overflow-hidden rounded-t-full bg-sand">
             {counsellor.photo ? (
-              <Image src={counsellor.photo} alt={counsellor.photoAlt} fill sizes="(min-width: 1024px) 25rem, 70vw" className="object-cover" />
+              <>
+                <div aria-hidden="true" className="absolute left-1/2 top-[14%] h-[52%] w-[68%] -translate-x-1/2 rounded-full bg-gold/30 blur-2xl" />
+                <Image
+                  src={counsellor.photo}
+                  alt={counsellor.photoAlt}
+                  fill
+                  sizes="(min-width: 1024px) 25rem, 70vw"
+                  className={`object-cover object-bottom ${counsellor.photoBlend ? "mix-blend-multiply" : ""}`}
+                />
+              </>
             ) : (
               // Image slot: shown until Harsha's actual photograph is supplied. No portrait is fabricated.
               <>
@@ -24,7 +34,7 @@ export default function AboutCounsellor() {
               </>
             )}
           </div>
-          <BackdropSprig className="-right-5 bottom-8 h-32 w-20 rotate-[8deg] text-forest/70 sm:-right-8 sm:h-40 sm:w-24" />
+          <Image src="/images/leaf-fall.png" alt="" width={170} height={450} aria-hidden="true" className="pointer-events-none absolute -right-5 top-[30%] w-[22%] max-w-[5.5rem] sm:-right-8" />
         </Reveal>
 
         <Reveal delay={0.08}>

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Menu } from "lucide-react";
+import { ArrowRight, Menu } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import MobileDrawer from "./MobileDrawer";
 
@@ -94,6 +94,7 @@ export default function Header() {
           <div className="flex items-center gap-3">
             <a href={siteConfig.bookingHref} className="btn btn-primary hidden !min-h-[42px] !px-5 lg:inline-flex">
               Book a Session
+              <ArrowRight size={16} aria-hidden="true" />
             </a>
             <button
               ref={menuButtonRef}

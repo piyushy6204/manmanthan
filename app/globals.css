@@ -11,6 +11,7 @@
   --mist: 220 230 220;   /* #DCE6DC secondary: section bands, cards */
   --sand: 239 227 205;   /* #EFE3CD alternate: warm highlight bands */
   --ink: 48 58 53;       /* #303A35 body text */
+  --gilt: 168 123 46;    /* #A87B2E deeper gold for gold TEXT (the pure gold is too light to read on ivory) */
   --sage: 169 187 168;   /* #A9BBA8 decorative strokes and soft text on dark (from the earlier palette) */
   --danger: 143 40 40;   /* form errors only */
 
@@ -44,6 +45,8 @@ body {
   .section-y { @apply py-12 sm:py-16 lg:py-20; }
 
   /* ---------- Typography system ---------- */
+  /* Hero headline: three stacked words, ~44px mobile to ~76px desktop */
+  .display-xl { @apply font-serif font-bold text-forest; font-size: clamp(2.75rem, 1.5rem + 5.2vw, 4.75rem); line-height: 1.02; letter-spacing: -0.015em; }
   /* Display (hero only): ~34px mobile, ~46px tablet, ~58px desktop */
   .display { @apply font-serif font-medium text-forest [text-wrap:balance];
              font-size: clamp(2.125rem, 1.2rem + 3.6vw, 3.625rem); line-height: 1.12; letter-spacing: -0.012em; }
@@ -119,3 +122,8 @@ body {
 /* Option A: a fine champagne-gold hairline where one section meets the next */
 main > section + section { border-top: 1px solid rgb(var(--gold) / 0.5); }
 footer { border-top: 1px solid rgb(var(--gold) / 0.5); }
+
+/* CBT circle: soft rings pulse 1, 2, 3 to invite a tap, until the first interaction. Static ring for reduced motion. */
+@keyframes nudge-ring { 0% { transform: scale(1); opacity: 0.95; } 70%, 100% { transform: scale(1.5); opacity: 0; } }
+.nudge-ring { animation: nudge-ring 2.4s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) { .nudge-ring { animation: none; transform: scale(1.12); opacity: 0.7; } }

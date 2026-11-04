@@ -12,6 +12,7 @@ const config: Config = {
         sage: token("sage"),
         mist: token("mist"),
         sand: token("sand"),
+        gilt: token("gilt"),
         ivory: token("ivory"),
         gold: token("gold"),
         ink: token("ink"),

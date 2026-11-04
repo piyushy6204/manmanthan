@@ -24,6 +24,8 @@ export const siteConfig = {
     /** Set to e.g. "/images/harsha.jpg" once her photograph is supplied. */
     photo: null as string | null,
     photoAlt: "Portrait of Harsha Lakhwani",
+    /** true = the photo has a plain white background: it is blended into the warm arch (no white box). Set false for a photo with its own background. */
+    photoBlend: true,
   },
   contact: {
     phone, // digits only
@@ -52,8 +54,8 @@ export const siteConfig = {
     logoWordmark: { src: "/images/logo-wordmark.png", alt: "Mann Manthan" },
     /** Emblem and wordmark from the original logo, arranged side by side for the header and drawer. */
     logoLockup: { src: "/images/logo-lockup.png", alt: "Mann Manthan", width: 1209, height: 300 },
-    /** Hero artwork (shown in the arch): client-supplied watercolour of a profile, leaves and a golden sun. */
-    heroImage: { src: "/images/hero-watercolour.jpg", alt: "Watercolour illustration of a woman in profile with closed eyes, surrounded by leaves and a golden sun", width: 502, height: 590 },
+    /** Hero artwork: the brand emblem (profile, leaves, golden ring), as on the mood board. */
+    heroImage: { src: "/images/logo-emblem.png", alt: "", width: 730, height: 650 },
     /** Section imagery. Client-supplied illustrations and artwork; AI-generated stand-ins where noted. */
     introBg: { src: "/images/intro-leaves.jpg", width: 1250, height: 768 },
     bannerLight: { src: "/images/intro-diptych.jpg", width: 1376, height: 426 },
