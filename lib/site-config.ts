@@ -22,10 +22,12 @@ export const siteConfig = {
     name: "Harsha Lakhwani",
     title: "Counselling Psychologist | Certified CBT Practitioner",
     /** Set to e.g. "/images/harsha.jpg" once her photograph is supplied. */
-    photo: null as string | null,
+    photo: "/images/harsha.jpg" as string | null,
+    photoWidth: 1004,
+    photoHeight: 1280,
     photoAlt: "Portrait of Harsha Lakhwani",
     /** true = the photo has a plain white background: it is blended into the warm arch (no white box). Set false for a photo with its own background. */
-    photoBlend: true,
+    photoBlend: false,
   },
   contact: {
     phone, // digits only
@@ -58,9 +60,9 @@ export const siteConfig = {
     heroImage: { src: "/images/logo-emblem.png", alt: "", width: 730, height: 650 },
     /** Section imagery. Client-supplied illustrations and artwork; AI-generated stand-ins where noted. */
     introBg: { src: "/images/intro-leaves.jpg", width: 1250, height: 768 },
-    bannerLight: { src: "/images/intro-diptych.jpg", width: 1376, height: 426 },
+    bannerLight: { src: "/images/intro-diptych.jpg", width: 1600, height: 639 },
     processArt: { src: "/images/process-journey.jpg", width: 728, height: 588 },
-    contactArt: { src: "/images/contact-books.jpg", width: 724, height: 584 },
+    contactArt: { src: "/images/contact-books.jpg", width: 740, height: 580 },
     /** About portrait placeholder (armchair room) until Harsha's own photograph is supplied via counsellor.photo. */
     portraitSlot: { src: "/images/about-armchair.jpg", width: 480, height: 600 },
   },
