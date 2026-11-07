@@ -61,6 +61,9 @@ export const siteConfig = {
     /** Section imagery. Client-supplied illustrations and artwork; AI-generated stand-ins where noted. */
     introBg: { src: "/images/intro-leaves.jpg", width: 1250, height: 768 },
     bannerLight: { src: "/images/intro-diptych.jpg", width: 1600, height: 639 },
+    /** The two halves of the supplied banner, trimmed of their pale margins. */
+    introProfile: { src: "/images/intro-profile.jpg", width: 723, height: 560 },
+    introLandscape: { src: "/images/intro-landscape.jpg", width: 723, height: 560 },
     processArt: { src: "/images/process-journey.jpg", width: 728, height: 588 },
     contactArt: { src: "/images/contact-books.jpg", width: 740, height: 580 },
     /** About portrait placeholder (armchair room) until Harsha's own photograph is supplied via counsellor.photo. */

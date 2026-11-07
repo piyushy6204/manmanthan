@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Brain, Footprints, Heart, MousePointerClick, type LucideIcon } from "lucide-react";
 import Reveal from "./Reveal";
@@ -64,9 +64,11 @@ const keys = Object.keys(elements) as Key[];
 export default function CBTSection() {
   const [active, setActive] = useState<Key>("thoughts");
   const [touched, setTouched] = useState(false); // the soft rings that invite a tap stop after the first interaction
-  const [paused, setPaused] = useState(false); // hover / focus inside the diagram
+  const [inView, setInView] = useState(true);
   const [reduced, setReduced] = useState(false);
-  const [resumeAt, setResumeAt] = useState(0); // bumped on a manual tap so autoplay waits a little before resuming
+  const [tick, setTick] = useState(0); // bumped on a manual tap so the next auto-step waits a little longer
+  const sectionRef = useRef<HTMLElement>(null);
+  const lastTap = useRef(0);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -76,16 +78,28 @@ export default function CBTSection() {
     return () => mq.removeEventListener("change", on);
   }, []);
 
-  // Auto-rotate Thoughts → Feelings → Behaviours, following the arrows. A tap restarts the wait; hover/focus pauses.
+  // Only rotate while the section is on screen
   useEffect(() => {
-    if (paused || reduced) return;
-    const id = window.setTimeout(() => setActive((a) => keys[(keys.indexOf(a) + 1) % keys.length]), 4500);
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const io = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: 0.25 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  // Auto-rotate Thoughts → Feelings → Behaviours, following the arrows. Works the same on desktop and mobile (no hover pause).
+  // After a manual tap the next step waits 9s so the visitor can finish reading.
+  useEffect(() => {
+    if (reduced || !inView) return;
+    const wait = Date.now() - lastTap.current < 9000 ? 9000 : 4500;
+    const id = window.setTimeout(() => setActive((a) => keys[(keys.indexOf(a) + 1) % keys.length]), wait);
     return () => window.clearTimeout(id);
-  }, [active, paused, reduced, resumeAt]);
+  }, [active, reduced, inView, tick]);
+
   const current = elements[active];
 
   return (
-    <section id="approach" aria-labelledby="approach-heading" className="section-y">
+    <section ref={sectionRef} id="approach" aria-labelledby="approach-heading" className="section-y">
       <div className="container-x grid items-start gap-8 lg:grid-cols-[45fr_55fr] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-5">
         {/* Mobile order: heading, then the interactive cycle, then the explanation. Desktop: text left, cycle right. */}
         <Reveal className="lg:col-start-1 lg:row-start-1">
@@ -96,13 +110,7 @@ export default function CBTSection() {
         </Reveal>
 
         <Reveal delay={0.08} className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
-          <div
-            className="border border-gold/50 bg-mist/50 p-4 sm:p-7"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
-          >
+          <div className="border border-gold/50 bg-mist/50 p-4 sm:p-7">
             <p className="mx-auto flex w-fit items-center gap-2 rounded-full border border-gold bg-ivory px-4 py-1.5 text-[0.875rem] font-medium text-forest">
               <MousePointerClick aria-hidden="true" strokeWidth={1.5} className="h-[1.125rem] w-[1.125rem] text-gilt" />
               Tap a circle to explore
@@ -155,7 +163,8 @@ export default function CBTSection() {
                     onClick={() => {
                       setActive(k);
                       setTouched(true);
-                      setResumeAt(Date.now());
+                      lastTap.current = Date.now();
+                      setTick((t) => t + 1);
                     }}
                     style={{ left: `${(p.x / 400) * 100}%`, top: `${(p.y / 360) * 100}%` }}
                     className={`group absolute flex aspect-square w-[18%] min-w-[46px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border transition duration-300 ease-calm hover:scale-105 ${

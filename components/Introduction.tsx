@@ -3,8 +3,20 @@ import { siteConfig } from "@/lib/site-config";
 import { ArcRing, BackdropSprig } from "./BackdropArt";
 import Reveal from "./Reveal";
 
+/** A tall arch with a fine gold outline set just off the edge: matches the arches in the mood board. */
+function ArchPicture({ src, width, height, position }: { src: string; width: number; height: number; position: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-[19rem]">
+      <div aria-hidden="true" className="absolute -inset-2.5 rounded-t-full border border-gold/60" />
+      <div className="relative aspect-[3/4.3] overflow-hidden rounded-t-full">
+        <Image src={src} alt="" width={width} height={height} sizes="19rem" className="h-full w-full object-cover" style={{ objectPosition: position }} />
+      </div>
+    </div>
+  );
+}
+
 export default function Introduction() {
-  const { bannerLight, introBg } = siteConfig.images;
+  const { introProfile, introLandscape, introBg } = siteConfig.images;
   return (
     <section id="introduction" aria-labelledby="intro-heading" className="on-dark relative overflow-hidden bg-forest section-y">
       {/* Leafy photographic backdrop with a deep-green veil, as in the mood board's "permission to pause" card */}
@@ -37,19 +49,42 @@ export default function Introduction() {
           </p>
         </Reveal>
 
-        <Reveal className="mt-10 lg:mt-12">
-          <div className="relative aspect-[16/7] overflow-hidden sm:aspect-[8/3] lg:aspect-[1376/426]">
-            <Image src={bannerLight.src} alt="" width={bannerLight.width} height={bannerLight.height} sizes="100vw" className="h-full w-full object-cover" />
+        <Reveal className="mt-10 lg:mt-14">
+          {/* Desktop: two arches flank the quote, which sits straight on the green */}
+          <div className="hidden items-center gap-8 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)_minmax(0,1fr)] xl:gap-12">
+            <ArchPicture src={introProfile.src} width={introProfile.width} height={introProfile.height} position="62% 50%" />
+            <figure className="text-center">
+              <span aria-hidden="true" className="block font-serif text-[5rem] leading-[0.7] text-gold">
+                &ldquo;
+              </span>
+              <blockquote className="mt-3 font-serif text-[clamp(1.5rem,0.9rem+1.35vw,2.15rem)] font-medium italic leading-[1.3] text-ivory [text-wrap:balance]">
+                Because healing does not always begin with having all the answers. Sometimes, it begins with giving yourself the space to{" "}
+                <span className="underline decoration-gold decoration-1 underline-offset-[9px]">ask the right questions.</span>
+              </blockquote>
+              <span aria-hidden="true" className="mx-auto mt-6 block h-px w-14 bg-gold" />
+              <figcaption className="mt-4 text-[0.8125rem] font-medium uppercase tracking-[0.2em] text-gold">Pause. Reflect. Reconnect.</figcaption>
+            </figure>
+            <ArchPicture src={introLandscape.src} width={introLandscape.width} height={introLandscape.height} position="60% 50%" />
           </div>
-          <figure className="relative mx-auto mt-8 max-w-[52rem] border border-gold/50 bg-ivory px-6 pb-10 pt-6 text-center sm:px-12 sm:pb-14 sm:pt-8 lg:mt-10">
-            <span aria-hidden="true" className="shine-gold block font-serif text-[5rem] leading-[0.75] sm:text-[6.5rem]">
-              &ldquo;
-            </span>
-            <blockquote className="shine-text font-serif text-[clamp(1.5rem,1.05rem+1.9vw,2.6rem)] font-medium italic leading-[1.28] [text-wrap:balance]">
-              Because healing does not always begin with having all the answers. Sometimes, it begins with giving yourself the space to{" "}
-              <span className="underline decoration-gold decoration-1 underline-offset-[10px]">ask the right questions.</span>
-            </blockquote>
-            <figcaption className="shine-text mt-7 text-[0.8125rem] font-medium uppercase tracking-[0.2em] sm:text-sm">Pause. Reflect. Reconnect.</figcaption>
+
+          {/* Mobile and tablet: one ivory card, portrait on top, quote, landscape strip along the bottom */}
+          <figure className="mx-auto max-w-[34rem] border border-gold/60 bg-ivory p-2.5 lg:hidden">
+            <div className="relative aspect-[4/3] overflow-hidden">
+              <Image src={introProfile.src} alt="" fill sizes="34rem" className="object-cover" style={{ objectPosition: "62% 50%" }} />
+            </div>
+            <div className="px-3 pb-6 pt-4 text-center sm:px-8">
+              <span aria-hidden="true" className="block font-serif text-[4rem] leading-[0.75] text-gold">
+                &ldquo;
+              </span>
+              <blockquote className="mt-2 font-serif text-[clamp(1.3rem,1rem+1.5vw,1.75rem)] font-medium italic leading-[1.3] text-forest [text-wrap:balance]">
+                Because healing does not always begin with having all the answers. Sometimes, it begins with giving yourself the space to{" "}
+                <span className="underline decoration-gold decoration-1 underline-offset-[8px]">ask the right questions.</span>
+              </blockquote>
+              <figcaption className="mt-5 text-[0.75rem] font-medium uppercase tracking-[0.2em] text-gilt sm:text-[0.8125rem]">Pause. Reflect. Reconnect.</figcaption>
+            </div>
+            <div className="relative aspect-[16/6] overflow-hidden">
+              <Image src={introLandscape.src} alt="" fill sizes="34rem" className="object-cover" style={{ objectPosition: "50% 60%" }} />
+            </div>
           </figure>
         </Reveal>
       </div>

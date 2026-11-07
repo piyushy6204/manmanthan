@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 import Button from "./Button";
+import { ArcRing } from "./BackdropArt";
 import Reveal from "./Reveal";
 
 export default function AboutCounsellor() {
@@ -9,20 +10,27 @@ export default function AboutCounsellor() {
   return (
     <section id="about" aria-labelledby="about-heading" className="relative overflow-hidden section-y">
       <div className="container-x grid items-start gap-8 lg:grid-cols-[40fr_60fr] lg:items-center lg:gap-12">
-        {/* Client portrait, shown exactly as supplied: no crop, tint, blend or overlay. */}
-        <Reveal className="relative mx-auto w-full max-w-[20rem] sm:max-w-[24rem] lg:mx-0 lg:max-w-[27rem]">
-          {counsellor.photo ? (
-            <Image
-              src={counsellor.photo}
-              alt={counsellor.photoAlt}
-              width={counsellor.photoWidth}
-              height={counsellor.photoHeight}
-              sizes="(min-width: 1024px) 27rem, 80vw"
-              className="h-auto w-full"
-            />
-          ) : (
-            <Image src={portraitSlot.src} alt="" width={portraitSlot.width} height={portraitSlot.height} sizes="(min-width: 1024px) 25rem, 70vw" className="h-auto w-full" />
-          )}
+        {/* Client portrait, shown exactly as supplied (no crop, tint or overlay). The frame sits around it:
+            a soft sand panel, a fine gold outline offset to the lower right, the logo's gold ring and a falling leaf. */}
+        <Reveal className="relative mx-auto w-full max-w-[20rem] pb-4 pr-4 sm:max-w-[24rem] lg:mx-0 lg:max-w-[28rem]">
+          <ArcRing className="-right-[14%] -top-[9%] h-[62%] w-[62%] text-gold/80" />
+          <div aria-hidden="true" className="absolute -left-4 top-6 h-[78%] w-[70%] bg-sand" />
+          <div aria-hidden="true" className="absolute bottom-0 left-4 right-0 top-4 border border-gold/70 sm:left-5 sm:top-5" />
+          <div className="relative border-[5px] border-ivory shadow-[0_18px_40px_-22px_rgba(7,61,50,0.55)]">
+            {counsellor.photo ? (
+              <Image
+                src={counsellor.photo}
+                alt={counsellor.photoAlt}
+                width={counsellor.photoWidth}
+                height={counsellor.photoHeight}
+                sizes="(min-width: 1024px) 28rem, 80vw"
+                className="block h-auto w-full"
+              />
+            ) : (
+              <Image src={portraitSlot.src} alt="" width={portraitSlot.width} height={portraitSlot.height} sizes="(min-width: 1024px) 25rem, 70vw" className="block h-auto w-full" />
+            )}
+          </div>
+          <Image src="/images/leaf-fall.png" alt="" width={170} height={450} aria-hidden="true" className="pointer-events-none absolute -right-1 bottom-[8%] w-[12%] max-w-[3.5rem]" />
         </Reveal>
 
         <Reveal delay={0.08}>
