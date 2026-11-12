@@ -5,10 +5,13 @@ import { validateEnquiry, type EnquiryInput } from "@/lib/enquiry";
  * Enquiry endpoint. The browser posts the form here; the keys below stay on the server.
  *
  * Delivery, in order of preference:
- *  1. EmailJS (EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, optional EMAILJS_PRIVATE_KEY).
+ *  1. EmailJS (defaults below; override with EMAILJS_SERVICE_ID / EMAILJS_TEMPLATE_ID / EMAILJS_PUBLIC_KEY; optional EMAILJS_PRIVATE_KEY).
  *  2. A generic webhook (ENQUIRY_WEBHOOK_URL).
  * If neither is configured the route answers 501, so the page never claims an enquiry was sent when it was not.
  */
+const DEFAULT_SERVICE_ID = "service_nkefuxt";
+const DEFAULT_TEMPLATE_ID = "template_hgnvu2i";
+const DEFAULT_PUBLIC_KEY = "7trNe3iKPLF7UxQkO";
 const EMAILJS_URL = process.env.EMAILJS_API_URL ?? "https://api.emailjs.com/api/v1.0/email/send";
 
 async function postJson(url: string, payload: unknown) {
@@ -46,9 +49,11 @@ export async function POST(req: Request) {
   const errors = validateEnquiry(input);
   if (Object.keys(errors).length) return NextResponse.json({ error: "validation", errors }, { status: 422 });
 
-  const serviceId = process.env.EMAILJS_SERVICE_ID;
-  const templateId = process.env.EMAILJS_TEMPLATE_ID;
-  const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+  // These three identifiers are not secret (EmailJS shows them to browsers by design), so the Mann Manthan account values
+  // are the defaults. Vercel environment variables, if set, take priority. The PRIVATE key must only ever come from an env var.
+  const serviceId = process.env.EMAILJS_SERVICE_ID || DEFAULT_SERVICE_ID;
+  const templateId = process.env.EMAILJS_TEMPLATE_ID || DEFAULT_TEMPLATE_ID;
+  const publicKey = process.env.EMAILJS_PUBLIC_KEY || DEFAULT_PUBLIC_KEY;
   const privateKey = process.env.EMAILJS_PRIVATE_KEY;
   const webhook = process.env.ENQUIRY_WEBHOOK_URL;
 

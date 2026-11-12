@@ -52,4 +52,4 @@ The contact form posts to `app/api/enquiry/route.ts`, which sends each enquiry t
 5. In **Account > Security**, switch on the option that allows the EmailJS API from non-browser (server) applications, and add the site domain `manmanthan.co.in` if there is an allowed-domains setting.
 6. In **Vercel > Project > Settings > Environment Variables** add `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY`, `EMAILJS_PRIVATE_KEY`, and `NEXT_PUBLIC_SITE_URL=https://www.manmanthan.co.in`. Redeploy.
 
-Until the three required values are set, the form tells the visitor that the enquiry was **not** sent. It never shows a false success.
+The Service ID, Template ID and Public Key for the Mann Manthan account are already the defaults in `route.ts` (they are not secret). Only the optional **Private Key** must stay in a Vercel variable. If EmailJS refuses an enquiry the form tells the visitor it was **not** sent, and the reason appears in the Vercel function logs. It never shows a false success.
