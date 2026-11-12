@@ -7,6 +7,7 @@ export type EnquiryInput = {
   phone: string;
   format: SessionFormat | "";
   date: string;
+  time: string; // optional, "HH:MM" (24-hour, from the browser time picker)
   message: string;
   consent: boolean;
   website: string; // honeypot, must stay empty
@@ -14,7 +15,7 @@ export type EnquiryInput = {
 
 export type EnquiryErrors = Partial<Record<keyof EnquiryInput, string>>;
 
-export const emptyEnquiry: EnquiryInput = { name: "", email: "", phone: "", format: "", date: "", message: "", consent: false, website: "" };
+export const emptyEnquiry: EnquiryInput = { name: "", email: "", phone: "", format: "", date: "", time: "", message: "", consent: false, website: "" };
 export const MESSAGE_MAX = 500;
 
 export function validateEnquiry(v: EnquiryInput, today?: string): EnquiryErrors {
@@ -37,6 +38,8 @@ export function validateEnquiry(v: EnquiryInput, today?: string): EnquiryErrors 
     if (!/^\d{4}-\d{2}-\d{2}$/.test(v.date)) e.date = "Please choose a valid date.";
     else if (today && v.date < today) e.date = "Please choose today or a later date.";
   }
+
+  if (v.time && !/^([01]\d|2[0-3]):[0-5]\d$/.test(v.time)) e.time = "Please choose a valid time.";
 
   if (v.message.length > MESSAGE_MAX) e.message = `Please keep your message under ${MESSAGE_MAX} characters.`;
   if (!v.consent) e.consent = "Please tick the box so we know we may contact you about this enquiry.";

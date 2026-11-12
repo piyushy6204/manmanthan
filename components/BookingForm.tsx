@@ -4,6 +4,7 @@ import Link from "next/link";
 import { CircleAlert } from "lucide-react";
 import { emptyEnquiry, MESSAGE_MAX, validateEnquiry, type EnquiryErrors, type EnquiryInput } from "@/lib/enquiry";
 import { siteConfig } from "@/lib/site-config";
+import TimeField from "./TimeField";
 
 type Status = "idle" | "submitting" | "sent" | "not_configured" | "failed";
 
@@ -28,6 +29,7 @@ export default function BookingForm() {
   const [errors, setErrors] = useState<EnquiryErrors>({});
   const [status, setStatus] = useState<Status>("idle");
   const [today, setToday] = useState("");
+  const [timeIncomplete, setTimeIncomplete] = useState(false); // some of Hour / Min / AM-PM chosen, but not all
   const summaryRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const { contact } = siteConfig;
@@ -43,6 +45,7 @@ export default function BookingForm() {
     ev.preventDefault();
     if (status === "submitting") return;
     const found = validateEnquiry(values, today || undefined);
+    if (timeIncomplete && !found.time) found.time = "Please choose the hour and AM or PM, or leave the time empty.";
     setErrors(found);
     if (Object.keys(found).length) {
       requestAnimationFrame(() => {
@@ -144,7 +147,7 @@ export default function BookingForm() {
           <FieldError id="phone-error" message={errors.phone} />
         </div>
 
-        <fieldset className="sm:order-5 sm:col-span-2" aria-describedby={describe("format")}>
+        <fieldset className="sm:order-4" aria-describedby={describe("format")}>
           <legend className="field-label">Preferred session format</legend>
           <div className="grid grid-cols-2 gap-3">
             {(["Online", "Offline"] as const).map((opt, i) => (
@@ -160,17 +163,32 @@ export default function BookingForm() {
           <FieldError id="format-error" message={errors.format} />
         </fieldset>
 
-        <div className="sm:order-4">
+        <div className="sm:order-5">
           <label htmlFor="date" className="field-label">
             Preferred appointment date <span className="font-normal text-ink/70">(optional)</span>
           </label>
           <input id="date" name="date" type="date" min={today || undefined} className="field" value={values.date} onChange={(e) => set("date", e.target.value)}
             aria-invalid={!!errors.date} aria-describedby={describe("date", "date-hint")} />
-          <p id="date-hint" className="mt-1.5 text-[0.9rem] text-ink/70 lg:sr-only">A guide only. The final time is agreed with you.</p>
+          <p id="date-hint" className="mt-1.5 text-[0.9rem] text-ink/70 sm:sr-only">A guide only. The final time is agreed with you.</p>
           <FieldError id="date-error" message={errors.date} />
         </div>
 
-        <div className="sm:order-6 sm:col-span-2">
+        <fieldset className="sm:order-6" aria-describedby={describe("time")}>
+          <legend className="field-label">
+            Preferred time <span className="font-normal text-ink/70">(optional)</span>
+          </legend>
+          <TimeField
+            value={values.time}
+            invalid={!!errors.time}
+            onChange={(v, incomplete) => {
+              set("time", v);
+              setTimeIncomplete(incomplete);
+            }}
+          />
+          <FieldError id="time-error" message={errors.time} />
+        </fieldset>
+
+        <div className="sm:order-7 sm:col-span-2">
           <label htmlFor="message" className="field-label">
             Message <span className="font-normal text-ink/70">(optional)</span>
           </label>
@@ -183,12 +201,12 @@ export default function BookingForm() {
         </div>
 
         {/* Honeypot: hidden from people and assistive tech. */}
-        <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden sm:order-7">
+        <div aria-hidden="true" className="absolute -left-[9999px] h-0 w-0 overflow-hidden sm:order-8">
           <label htmlFor="website">Leave this field empty</label>
           <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" value={values.website} onChange={(e) => set("website", e.target.value)} />
         </div>
 
-        <div className="sm:order-8 sm:col-span-2">
+        <div className="sm:order-9 sm:col-span-2">
           <div className="flex items-start gap-3">
             <input id="consent" name="consent" type="checkbox" checked={values.consent} onChange={(e) => set("consent", e.target.checked)}
               className="mt-1 h-6 w-6 shrink-0 cursor-pointer accent-forest" aria-invalid={!!errors.consent} aria-describedby={describe("consent")} aria-required="true" />
@@ -203,7 +221,7 @@ export default function BookingForm() {
       <p id="privacy-note" className="mt-5 small-copy">
         We use these details only to reply to your enquiry. See our{" "}
         <Link href="/privacy" className="text-forest underline underline-offset-4">Privacy Policy</Link>.
-        Submitting this form sends an enquiry. It does not book or confirm a session.<span className="hidden lg:inline"> Your preferred date is a guide only; the final time is agreed with you.</span>
+        Submitting this form sends an enquiry. It does not book or confirm a session.<span className="hidden sm:inline"> Your preferred date and time are a guide only; the final time is agreed with you.</span>
       </p>
 
       <button type="submit" className="btn btn-primary mt-6 w-full sm:w-auto lg:mt-5" disabled={status === "submitting"}>
