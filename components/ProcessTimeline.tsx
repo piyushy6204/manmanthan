@@ -77,9 +77,6 @@ export default function ProcessTimeline() {
         <Reveal className="mt-9 grid items-center gap-6 lg:mt-12 lg:grid-cols-[1fr_28rem] lg:gap-12">
           <div className="flex flex-col items-start gap-4">
             <Button href={siteConfig.bookingHref}>Let&apos;s Get Started</Button>
-            <p className="max-w-[34rem] small-copy">
-              Sending an enquiry is the first step. A session is only confirmed once a time has been agreed with you.
-            </p>
           </div>
           {/* Client-supplied watercolour of a winding path towards the sun: the journey of counselling */}
           <div className="relative aspect-[16/8] overflow-hidden rounded-[3px] border border-gold/50 lg:aspect-[2/1]">

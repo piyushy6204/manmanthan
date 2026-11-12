@@ -38,3 +38,18 @@ While phone/WhatsApp are blank, the floating controls and drawer buttons scroll 
 - **Type system** is defined once in `globals.css`: `.display` (hero), `.h2`, `.h3`, `.lede`, `.eyebrow`, `.body-copy`, `.small-copy`.
 - **Logo**: `public/images/logo-lockup.png` is the original emblem and wordmark arranged side by side (header and drawer). The footer uses the full original logo.
 - **Imagery**: the six topic illustrations (cropped from the supplied sheet) (`topic-*.jpg`), the hero watercolour, the process watercolour, the books photo and the armchair placeholder are client-supplied artwork. `intro-leaves.jpg` is an AI-generated stand-in; `intro-diptych.jpg` is client-supplied. All paths are in `lib/site-config.ts` and `lib/areas.ts`. Harsha’s portrait is `harsha.jpg` (set in `counsellor.photo`), shown uncropped.
+
+
+## Enquiry emails (EmailJS + Vercel)
+
+The contact form posts to `app/api/enquiry/route.ts`, which sends each enquiry to the practice inbox through EmailJS. The keys live in environment variables, never in the code.
+
+1. Log in at emailjs.com with the Manmanthan Google account and verify the email address.
+2. **Email Services > Add New Service > Gmail > Connect** (sign in with Google). Copy the **Service ID**.
+3. **Email Templates > Create New Template.** Paste `docs/emailjs-email-template.html` into the code editor and set:
+   Subject `New enquiry from {{name}} (Mann Manthan)`, To Email = the inbox that should receive enquiries, Reply To `{{reply_to}}`, From Name `Mann Manthan Website`. Copy the **Template ID**.
+4. **Account > General / API keys:** copy the **Public Key** (and the **Private Key**, recommended).
+5. In **Account > Security**, switch on the option that allows the EmailJS API from non-browser (server) applications, and add the site domain `manmanthan.co.in` if there is an allowed-domains setting.
+6. In **Vercel > Project > Settings > Environment Variables** add `EMAILJS_SERVICE_ID`, `EMAILJS_TEMPLATE_ID`, `EMAILJS_PUBLIC_KEY`, `EMAILJS_PRIVATE_KEY`, and `NEXT_PUBLIC_SITE_URL=https://www.manmanthan.co.in`. Redeploy.
+
+Until the three required values are set, the form tells the visitor that the enquiry was **not** sent. It never shows a false success.

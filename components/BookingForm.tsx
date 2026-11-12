@@ -176,8 +176,8 @@ export default function BookingForm() {
           </label>
           <textarea id="message" name="message" rows={4} maxLength={MESSAGE_MAX + 50} className="field resize-y lg:h-20 lg:min-h-0" value={values.message} onChange={(e) => set("message", e.target.value)}
             aria-invalid={!!errors.message} aria-describedby={describe("message", "message-hint")} />
-          <p id="message-hint" className="mt-1.5 text-[0.9rem] leading-snug text-ink/70">
-            A line or two is plenty. Please don&apos;t share detailed personal or health information here. {values.message.length}/{MESSAGE_MAX}
+          <p id="message-hint" className="mt-1.5 text-right text-[0.9rem] leading-snug text-ink/70">
+            {values.message.length}/{MESSAGE_MAX}
           </p>
           <FieldError id="message-error" message={errors.message} />
         </div>

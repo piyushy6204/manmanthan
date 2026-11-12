@@ -2,10 +2,25 @@ import { NextResponse } from "next/server";
 import { validateEnquiry, type EnquiryInput } from "@/lib/enquiry";
 
 /**
- * Enquiry endpoint.
- * Forwards a validated enquiry to ENQUIRY_WEBHOOK_URL (server-side only, never exposed to the browser).
- * If no webhook is configured it answers 501 so the UI never claims an enquiry was sent when it was not.
+ * Enquiry endpoint. The browser posts the form here; the keys below stay on the server.
+ *
+ * Delivery, in order of preference:
+ *  1. EmailJS (EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY, optional EMAILJS_PRIVATE_KEY).
+ *  2. A generic webhook (ENQUIRY_WEBHOOK_URL).
+ * If neither is configured the route answers 501, so the page never claims an enquiry was sent when it was not.
  */
+const EMAILJS_URL = process.env.EMAILJS_API_URL ?? "https://api.emailjs.com/api/v1.0/email/send";
+
+async function postJson(url: string, payload: unknown) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 12000);
+  try {
+    return await fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload), signal: ctrl.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 export async function POST(req: Request) {
   let body: Partial<EnquiryInput>;
   try {
@@ -25,26 +40,54 @@ export async function POST(req: Request) {
     website: String(body.website ?? ""),
   };
 
-  // Honeypot: pretend success to bots without forwarding anything.
+  // Honeypot: pretend success to bots without sending anything.
   if (input.website) return NextResponse.json({ ok: true });
 
   const errors = validateEnquiry(input);
   if (Object.keys(errors).length) return NextResponse.json({ error: "validation", errors }, { status: 422 });
 
+  const serviceId = process.env.EMAILJS_SERVICE_ID;
+  const templateId = process.env.EMAILJS_TEMPLATE_ID;
+  const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+  const privateKey = process.env.EMAILJS_PRIVATE_KEY;
   const webhook = process.env.ENQUIRY_WEBHOOK_URL;
-  if (!webhook) return NextResponse.json({ error: "not_configured" }, { status: 501 });
 
   try {
-    const { website: _omit, ...payload } = input;
-    void _omit;
-    const res = await fetch(webhook, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...payload, source: "Mann Manthan website", receivedAt: new Date().toISOString() }),
-    });
-    if (!res.ok) return NextResponse.json({ error: "upstream" }, { status: 502 });
-    return NextResponse.json({ ok: true });
-  } catch {
+    if (serviceId && templateId && publicKey) {
+      const res = await postJson(EMAILJS_URL, {
+        service_id: serviceId,
+        template_id: templateId,
+        user_id: publicKey,
+        ...(privateKey ? { accessToken: privateKey } : {}),
+        // These names are the {{variables}} used in the EmailJS template (see docs/emailjs-email-template.html).
+        template_params: {
+          name: input.name.trim(),
+          email: input.email.trim(),
+          reply_to: input.email.trim(),
+          phone: input.phone.trim(),
+          format: input.format,
+          preferred_date: input.date || "Not specified",
+          message: input.message.trim() || "No message",
+          submitted_at: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata", dateStyle: "medium", timeStyle: "short" }) + " IST",
+        },
+      });
+      if (!res.ok) {
+        console.error("EmailJS rejected the enquiry:", res.status, await res.text().catch(() => ""));
+        return NextResponse.json({ error: "upstream" }, { status: 502 });
+      }
+      return NextResponse.json({ ok: true });
+    }
+
+    if (webhook) {
+      const { website: _omit, ...payload } = input;
+      void _omit;
+      const res = await postJson(webhook, { ...payload, source: "Mann Manthan website", receivedAt: new Date().toISOString() });
+      return res.ok ? NextResponse.json({ ok: true }) : NextResponse.json({ error: "upstream" }, { status: 502 });
+    }
+  } catch (err) {
+    console.error("Enquiry delivery failed:", err);
     return NextResponse.json({ error: "upstream" }, { status: 502 });
   }
+
+  return NextResponse.json({ error: "not_configured" }, { status: 501 });
 }
