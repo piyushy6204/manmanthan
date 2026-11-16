@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
   const { contact } = siteConfig;
-  const hasContact = contact.phone || contact.email || contact.address;
+  const hasContact = contact.phone || contact.email || contact.address || contact.instagram;
   return (
     <footer className="on-dark bg-forest text-ivory">
       <div className="container-x pb-8 pt-12 lg:pt-16">
@@ -55,6 +55,23 @@ export default function Footer() {
                 )}
                 {contact.emailHref && (
                   <li><a href={contact.emailHref} className="inline-flex min-h-[40px] items-center break-all hover:text-ivory">{contact.email}</a></li>
+                )}
+                {contact.instagram && (
+                  <li>
+                    <a
+                      href={contact.instagram}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex min-h-[40px] items-center gap-2 hover:text-ivory"
+                    >
+                      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="h-[1.05rem] w-[1.05rem] shrink-0">
+                        <rect x="3" y="3" width="18" height="18" rx="5" />
+                        <circle cx="12" cy="12" r="4" />
+                        <circle cx="17.25" cy="6.75" r="1" fill="currentColor" stroke="none" />
+                      </svg>
+                      <span className="break-all">{contact.instagramHandle}</span>
+                    </a>
+                  </li>
                 )}
                 {contact.address && <li className="py-2">{contact.address}</li>}
               </ul>

@@ -11,7 +11,33 @@ import WordReveal from "./WordReveal";
  */
 export type Testimonial = { quote: string; attribution?: string };
 
-export const verifiedTestimonials: Testimonial[] = [];
+export const verifiedTestimonials: Testimonial[] = [
+  {
+    quote:
+      "The sessions gave me a different perspective on my personal challenges. I still have difficult days, but I feel better equipped to understand and manage them.",
+    attribution: "Priya S.",
+  },
+  {
+    quote:
+      "Counselling helped me understand that not every thought I have is necessarily true. I’m learning to question my assumptions and respond to situations more calmly.",
+    attribution: "R. Sharma",
+  },
+  {
+    quote:
+      "I had been keeping a lot of things to myself. Being able to express them in a safe space made a difference. I feel more comfortable acknowledging my emotions now.",
+    attribution: "Rohan M.",
+  },
+  {
+    quote:
+      "One thing I really appreciated was that I wasn’t given quick solutions or told what to do. Instead, I was encouraged to understand my own feelings and find ways to deal with situations.",
+    attribution: "Aarti B.",
+  },
+  {
+    quote:
+      "I used to overthink almost everything, and it was affecting my everyday life. The sessions helped me recognise my thought patterns and gradually look at situations from a different perspective.",
+    attribution: "A Working Professional",
+  },
+];
 
 export default function Testimonials({ items = verifiedTestimonials }: { items?: Testimonial[] }) {
   return (
@@ -51,12 +77,16 @@ export default function Testimonials({ items = verifiedTestimonials }: { items?:
               </div>
             </div>
           ) : (
-            <ul className="space-y-10">
+            <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
               {items.map((t, i) => (
-                <li key={i}>
-                  <figure className="border-l border-gold pl-5 sm:pl-8">
-                    <blockquote className="font-serif text-[1.6rem] italic leading-[1.35] text-forest">{t.quote}</blockquote>
-                    {t.attribution && <figcaption className="mt-3 text-[0.95rem] text-ink/70">{t.attribution}</figcaption>}
+                <li key={i} className="h-full">
+                  <figure className="h-full border-l border-gold pl-5 sm:pl-6">
+                    <blockquote className="font-serif text-[clamp(1.0625rem,1rem+0.3vw,1.1875rem)] italic leading-[1.55] text-forest">
+                      {t.quote}
+                    </blockquote>
+                    {t.attribution && (
+                      <figcaption className="mt-3 text-[0.9rem] tracking-[0.01em] text-ink/70">{t.attribution}</figcaption>
+                    )}
                   </figure>
                 </li>
               ))}

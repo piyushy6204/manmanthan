@@ -40,6 +40,8 @@ export const siteConfig = {
     emailHref: email ? `mailto:${email}` : "",
     /** Address, social profiles: add only when supplied. */
     address: "",
+    instagram: "https://www.instagram.com/manmanthan_with_harsha",
+    instagramHandle: "@manmanthan_with_harsha",
   },
   nav: [
     { label: "Home", href: "#home" },
