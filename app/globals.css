@@ -95,6 +95,35 @@ body {
 .ripple { animation: ripple 4.8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite; }
 @media (prefers-reduced-motion: reduce) { .ripple { animation: none !important; transform: scale(0.6); opacity: 0.3; } }
 
+/* Testimonials: reviews drifting slowly sideways. Pauses while hovered, pressed or focused,
+   and becomes an ordinary swipeable row when the visitor prefers reduced motion. */
+@keyframes marquee-x { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+.marquee {
+  position: relative;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marquee-x var(--marquee-duration, 52s) linear infinite;
+}
+.marquee:hover .marquee-track,
+.marquee:active .marquee-track,
+.marquee:focus-within .marquee-track { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+  .marquee-track { animation: none; }
+  .marquee-track > * { scroll-snap-align: start; }
+}
+
 /* Shiny finish for the pull quote: forest text with a soft champagne-gold sheen that sweeps across now and then.
    Static (no sweep) when the visitor prefers reduced motion. */
 .shine-text {

@@ -39,20 +39,73 @@ export const verifiedTestimonials: Testimonial[] = [
   },
 ];
 
+function Quote({ item }: { item: Testimonial }) {
+  return (
+    <figure className="flex h-full flex-col border border-gold/40 bg-ivory px-5 py-6 sm:px-6">
+      <blockquote className="font-serif text-[1.0625rem] italic leading-[1.55] text-forest sm:text-[1.125rem]">
+        {item.quote}
+      </blockquote>
+      {item.attribution && (
+        <figcaption className="mt-4 flex items-center gap-2.5 text-[0.9rem] text-ink/70">
+          <span aria-hidden="true" className="h-px w-6 shrink-0 bg-gold" />
+          {item.attribution}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
 export default function Testimonials({ items = verifiedTestimonials }: { items?: Testimonial[] }) {
+  const hasItems = items.length > 0;
+
   return (
     <section id="experiences" aria-labelledby="experiences-heading" className="relative overflow-hidden bg-mist section-y">
       <Ripples className="-right-28 top-1/2 h-[22rem] w-[22rem] -translate-y-1/2 text-forest/20 lg:-right-20 lg:h-[30rem] lg:w-[30rem]" />
       <BackdropSprig className="hidden rotate-[10deg] text-forest/20 lg:bottom-3 lg:left-5 lg:block lg:h-24 lg:w-14" />
-      <div className="container-x relative grid items-start gap-5 lg:grid-cols-[40fr_60fr] lg:gap-12">
-        <Reveal>
-          <h2 id="experiences-heading" className="h2 max-w-[16ch]">
-            <WordReveal text="Experiences shared with care." stagger={0.14} />
-          </h2>
-        </Reveal>
 
-        <Reveal delay={0.08}>
-          {items.length === 0 ? (
+      {hasItems ? (
+        <>
+          <div className="container-x relative">
+            <Reveal>
+              <h2 id="experiences-heading" className="h2 max-w-[16ch]">
+                <WordReveal text="Experiences shared with care." stagger={0.14} />
+              </h2>
+            </Reveal>
+          </div>
+
+          <Reveal delay={0.08} className="relative mt-7 lg:mt-9">
+            {/* Reviews drift sideways and loop seamlessly: the list is rendered twice and the track
+                travels exactly half its width. Pace scales with the number of reviews. */}
+            <div
+              className="marquee"
+              style={{ "--marquee-duration": `${items.length * 10.5}s` } as React.CSSProperties}
+            >
+              <ul className="marquee-track">
+                {[...items, ...items].map((t, i) => (
+                  <li
+                    key={i}
+                    aria-hidden={i >= items.length ? "true" : undefined}
+                    className="me-4 w-[78vw] max-w-[23rem] shrink-0 sm:me-6 sm:w-[23rem]"
+                  >
+                    <Quote item={t} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <p className="container-x mt-4 small-copy !text-[0.8125rem]">
+              Shared with permission. Hold to pause.
+            </p>
+          </Reveal>
+        </>
+      ) : (
+        <div className="container-x relative grid items-start gap-5 lg:grid-cols-[40fr_60fr] lg:gap-12">
+          <Reveal>
+            <h2 id="experiences-heading" className="h2 max-w-[16ch]">
+              <WordReveal text="Experiences shared with care." stagger={0.14} />
+            </h2>
+          </Reveal>
+
+          <Reveal delay={0.08}>
             <div className="flex items-center gap-5 sm:gap-9">
               {/* Ripples spreading from a single point: the feeling of being heard. Decorative. */}
               <div aria-hidden="true" className="relative h-[4.5rem] w-[4.5rem] shrink-0 sm:h-24 sm:w-24">
@@ -76,24 +129,9 @@ export default function Testimonials({ items = verifiedTestimonials }: { items?:
                 </motion.p>
               </div>
             </div>
-          ) : (
-            <ul className="grid gap-x-10 gap-y-8 sm:grid-cols-2">
-              {items.map((t, i) => (
-                <li key={i} className="h-full">
-                  <figure className="h-full border-l border-gold pl-5 sm:pl-6">
-                    <blockquote className="font-serif text-[clamp(1.0625rem,1rem+0.3vw,1.1875rem)] italic leading-[1.55] text-forest">
-                      {t.quote}
-                    </blockquote>
-                    {t.attribution && (
-                      <figcaption className="mt-3 text-[0.9rem] tracking-[0.01em] text-ink/70">{t.attribution}</figcaption>
-                    )}
-                  </figure>
-                </li>
-              ))}
-            </ul>
-          )}
-        </Reveal>
-      </div>
+          </Reveal>
+        </div>
+      )}
     </section>
   );
 }
